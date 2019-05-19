@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="gui" default="False" />
+	<param name="wheelchair" textfile="$(find robot_sim)/urdf/model.urdf" />
+	<param name="use_gui" value="True"/>
+	<node name="base_footprint" pkg="base_footprint" type="joint_state_publisher" />
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+	<node name="rviz" pkg="rviz" type="rviz" args="$(find robot_sim)/launch/wheelchair.rviz" required="true" />
+
+</launch>

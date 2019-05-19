@@ -1,0 +1,8 @@
+prefix=/home/kundan/wheelchair_ws/install
+
+Name: wheelchair_gazebo
+Description: Description of wheelchair_gazebo
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/kundan/wheelchair_ws/install/lib 
+Requires: 

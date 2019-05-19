@@ -1,0 +1,2 @@
+wheelchair_description:wheelchair_gazebo
+-DCATKIN_DEVEL_PREFIX=/home/kundan/wheelchair_ws/devel -DCMAKE_INSTALL_PREFIX=/home/kundan/wheelchair_ws/install -G Unix Makefiles
