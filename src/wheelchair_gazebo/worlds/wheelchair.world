@@ -6,7 +6,9 @@
     <!--include>
       <uri>model://willowgarage</uri>
     </include-->
-
+    <!--include>
+      <uri>model://office_env_large</uri>
+    </include-->
     <include>
       <uri>model://ground_plane</uri>
     </include>

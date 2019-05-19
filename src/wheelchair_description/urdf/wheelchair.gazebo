@@ -13,12 +13,24 @@
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
-      <robotBaseFrame>footprint</robotBaseFrame>
+      <robotBaseFrame>base_footprint</robotBaseFrame>
     </plugin>
   </gazebo>
 
   <gazebo reference="footprint">
       <material>Gazebo/Green</material>
+    </gazebo>
+    <gazebo reference="l">
+      <material>Gazebo/Blue</material>
+    </gazebo>
+    <gazebo reference="r">
+      <material>Gazebo/Blue</material>
+    </gazebo>
+   <gazebo reference="lf">
+      <material>Gazebo/Blue</material>
+    </gazebo>
+    <gazebo reference="rf">
+      <material>Gazebo/Blue</material>
     </gazebo>
 
 </robot>

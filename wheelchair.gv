@@ -5,11 +5,9 @@ node [shape=box];
 "base" [label="base"];
 "left_leg" [label="left_leg"];
 "l_rev" [label="l_rev"];
-"left_leg_b" [label="left_leg_b"];
 "lf" [label="lf"];
 "right_leg" [label="right_leg"];
 "r_rev" [label="r_rev"];
-"right_leg_b" [label="right_leg_b"];
 "rf" [label="rf"];
 "l" [label="l"];
 "r" [label="r"];
@@ -22,18 +20,14 @@ node [shape=ellipse, color=blue, fontcolor=blue];
 "base_left_leg_joint" -> "left_leg"
 "left_leg" -> "left_leg_l_rev_joint" [label="xyz: 0 0 -0.0354 \nrpy: 0 -0 0"]
 "left_leg_l_rev_joint" -> "l_rev"
-"l_rev" -> "l_rev_left_leg_b_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
-"l_rev_left_leg_b_joint" -> "left_leg_b"
-"left_leg_b" -> "left_leg_b_lf_joint" [label="xyz: 0 0 -0.1065 \nrpy: 0 -0 0"]
-"left_leg_b_lf_joint" -> "lf"
+"l_rev" -> "l_rev_lf_joint" [label="xyz: 0.04 0 -0.096 \nrpy: 0 -0 0"]
+"l_rev_lf_joint" -> "lf"
 "base" -> "base_right_leg_joint" [label="xyz: 0.302676 -0.101784 0 \nrpy: 0 -0 0"]
 "base_right_leg_joint" -> "right_leg"
 "right_leg" -> "right_leg_r_rev_joint" [label="xyz: 0 0 -0.0354 \nrpy: 0 -0 0"]
 "right_leg_r_rev_joint" -> "r_rev"
-"r_rev" -> "r_rev_right_leg_b_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
-"r_rev_right_leg_b_joint" -> "right_leg_b"
-"right_leg_b" -> "right_leg_b_rf_joint" [label="xyz: 0 0 -0.1065 \nrpy: 0 -0 0"]
-"right_leg_b_rf_joint" -> "rf"
+"r_rev" -> "r_rev_rf_joint" [label="xyz: 0.04 0 -0.096 \nrpy: 0 -0 0"]
+"r_rev_rf_joint" -> "rf"
 "axel" -> "axel_l_joint" [label="xyz: 0 0.201784 0 \nrpy: 0 -0 0"]
 "axel_l_joint" -> "l"
 "axel" -> "axel_r_joint" [label="xyz: 0 -0.201784 0 \nrpy: 0 -0 0"]
