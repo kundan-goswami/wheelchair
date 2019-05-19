@@ -8,12 +8,12 @@
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
-      <updateRate>20</updateRate>
+      <updateRate>50</updateRate>
       <leftJoint>axel_l_joint</leftJoint>
       <rightJoint>axel_r_joint</rightJoint>
-      <wheelSeparation>0.4</wheelSeparation>
-      <wheelDiameter>0.4</wheelDiameter>
-      <torque>20</torque>
+      <wheelSeparation>0.403568</wheelSeparation>
+      <wheelDiameter>0.403568</wheelDiameter>
+      <torque>10</torque>
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
@@ -154,8 +154,8 @@
     </visual>
     <inertial name="left_leg_intertial">
       <origin rpy="0 0 0" xyz="0 0 -0.0177"/>
-      <mass value="0.1"/>
-      <inertia ixx="1.12763333333e-05" ixy="0" ixz="0" iyy="1.12763333333e-05" iyz="0" izz="1.12763333333e-05"/>
+      <mass value="2"/>
+      <inertia ixx="0.000225526666667" ixy="0" ixz="0" iyy="0.000225526666667" iyz="0" izz="0.000225526666667"/>
     </inertial>
   </link>
   <joint name="base_left_leg_joint" type="fixed">
@@ -177,8 +177,8 @@
     </visual>
     <inertial name="right_leg_intertial">
       <origin rpy="0 0 0" xyz="0 0 -0.0177"/>
-      <mass value="0.1"/>
-      <inertia ixx="1.12763333333e-05" ixy="0" ixz="0" iyy="1.12763333333e-05" iyz="0" izz="1.12763333333e-05"/>
+      <mass value="2"/>
+      <inertia ixx="0.000225526666667" ixy="0" ixz="0" iyy="0.000225526666667" iyz="0" izz="0.000225526666667"/>
     </inertial>
   </link>
   <joint name="base_right_leg_joint" type="fixed">
@@ -212,8 +212,8 @@
     </visual>
     <inertial name="l_rev_visual_intertial">
       <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
-      <mass value="0.1"/>
-      <inertia ixx="1.31138491213e-05" ixy="0" ixz="0" iyy="1.31138491213e-05" iyz="0" izz="5e-06"/>
+      <mass value="2"/>
+      <inertia ixx="0.000262276982427" ixy="0" ixz="0" iyy="0.000262276982427" iyz="0" izz="0.0001"/>
     </inertial>
   </link>
   <joint name="left_leg_l_rev_joint" type="continuous">
@@ -222,30 +222,7 @@
     <parent link="left_leg"/>
     <axis rpy="0 0 0" xyz="0 0 1"/>
     <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
-  </joint>
-  <link name="left_leg_b">
-    <collision name="left_leg_b_chassis_collision">
-      <geometry>
-        <box size="0.01 0.01 0.1065"/>
-      </geometry>
-    </collision>
-    <visual name="left_leg_b_visual">
-      <origin rpy="0 0 0" xyz="0 0 -0.05325"/>
-      <geometry>
-        <box size="0.01 0.01 0.1065"/>
-      </geometry>
-    </visual>
-    <inertial name="left_leg_b_intertial">
-      <origin rpy="0 0 0" xyz="0 0 -0.05325"/>
-      <mass value="0.1"/>
-      <inertia ixx="9.53520833333e-05" ixy="0" ixz="0" iyy="9.53520833333e-05" iyz="0" izz="9.53520833333e-05"/>
-    </inertial>
-  </link>
-  <joint name="l_rev_left_leg_b_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="l_rev"/>
-    <child link="left_leg_b"/>
+    <joint_properties damping="0.1" friction="0.1"/>
   </joint>
   <link name="r_rev">
     <collision name="r_rev_collision">
@@ -273,8 +250,8 @@
     </visual>
     <inertial name="r_rev_visual_intertial">
       <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
-      <mass value="0.1"/>
-      <inertia ixx="1.31138491213e-05" ixy="0" ixz="0" iyy="1.31138491213e-05" iyz="0" izz="5e-06"/>
+      <mass value="2"/>
+      <inertia ixx="0.000262276982427" ixy="0" ixz="0" iyy="0.000262276982427" iyz="0" izz="0.0001"/>
     </inertial>
   </link>
   <joint name="right_leg_r_rev_joint" type="continuous">
@@ -283,31 +260,12 @@
     <parent link="right_leg"/>
     <axis rpy="0 0 0" xyz="0 0 1"/>
     <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <joint_properties damping="0.1" friction="0.1"/>
   </joint>
-  <link name="right_leg_b">
-    <collision name="right_leg_b_chassis_collision">
-      <geometry>
-        <box size="0.01 0.01 0.1065"/>
-      </geometry>
-    </collision>
-    <visual name="right_leg_b_visual">
-      <origin rpy="0 0 0" xyz="0 0 -0.05325"/>
-      <geometry>
-        <box size="0.01 0.01 0.1065"/>
-      </geometry>
-    </visual>
-    <inertial name="right_leg_b_intertial">
-      <origin rpy="0 0 0" xyz="0 0 -0.05325"/>
-      <mass value="0.1"/>
-      <inertia ixx="9.53520833333e-05" ixy="0" ixz="0" iyy="9.53520833333e-05" iyz="0" izz="9.53520833333e-05"/>
-    </inertial>
-  </link>
-  <joint name="r_rev_right_leg_b_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="r_rev"/>
-    <child link="right_leg_b"/>
-  </joint>
+  <!--
+  <chassis name="right_leg_b" xyz="0 0 ${-small_wheel_radius}" rpy="0 0 0" m="${legs_weight}" chassisLength="${legs_length}" chassisWidth="${legs_width}" chassisHeight="${2*small_wheel_radius}"/>
+  <link_joint parent="r_rev" child ="right_leg_b" xyz="0 0 0" rpy="0 0 0" type="fixed"/>
+-->
   <link name="l">
     <collision name="l_collision">
       <origin rpy="-1.57079632679 0 0" xyz=" 0 0 0"/>
@@ -344,7 +302,7 @@
     <parent link="axel"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <joint_properties damping="0.1" friction="0.1"/>
   </joint>
   <link name="r">
     <collision name="r_collision">
@@ -382,7 +340,7 @@
     <parent link="axel"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <joint_properties damping="0.1" friction="0.1"/>
   </joint>
   <link name="lf">
     <collision name="lf_collision">
@@ -414,13 +372,13 @@
       <inertia ixx="0.00124133333333" ixy="0" ixz="0" iyy="0.00124133333333" iyz="0" izz="0.002312"/>
     </inertial>
   </link>
-  <joint name="left_leg_b_lf_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0 0 -0.1065"/>
+  <joint name="l_rev_lf_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0.04 0 -0.096"/>
     <child link="lf"/>
-    <parent link="left_leg_b"/>
+    <parent link="l_rev"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <joint_properties damping="0.1" friction="0.1"/>
   </joint>
   <link name="rf">
     <collision name="rf_collision">
@@ -452,12 +410,12 @@
       <inertia ixx="0.00124133333333" ixy="0" ixz="0" iyy="0.00124133333333" iyz="0" izz="0.002312"/>
     </inertial>
   </link>
-  <joint name="right_leg_b_rf_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0 0 -0.1065"/>
+  <joint name="r_rev_rf_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0.04 0 -0.096"/>
     <child link="rf"/>
-    <parent link="right_leg_b"/>
+    <parent link="r_rev"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <joint_properties damping="0.1" friction="0.1"/>
   </joint>
 </robot>

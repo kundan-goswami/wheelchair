@@ -3,9 +3,9 @@
   <!-- We use a custom world for the rrbot so that the camera angle is launched correctly -->
 
   <world name="default">
-    <include>
+    <!--include>
       <uri>model://willowgarage</uri>
-    </include>
+    </include-->
 
     <include>
       <uri>model://ground_plane</uri>
@@ -30,7 +30,7 @@
           <name>wheelchair</name>
           <static>true</static>
           <use_model_frame>true</use_model_frame>
-          <xyz>-4.927360 -4.376610 3.740080</xyz>
+          <xyz>-1.5 -1.5 1.5</xyz>
           <inherit_yaw>true</inherit_yaw>
         </track_visual>
     </camera>

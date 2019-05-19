@@ -4,7 +4,7 @@
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
-      <updateRate>50</updateRate>
+      <updateRate>20</updateRate>
       <leftJoint>axel_l_joint</leftJoint>
       <rightJoint>axel_r_joint</rightJoint>
       <wheelSeparation>${main_wheel_radius*2}</wheelSeparation>
