@@ -15,8 +15,8 @@
   <xacro:property name="small_wheel_length" value="0.032" />
   <xacro:property name="small_wheel_weight" value="1.5" />
 
-  <xacro:property name="chair_width" value="${2*main_wheel_radius - 0.2}" /> <!-- From front wheel right joint to front wheel left joint -->
-  <xacro:property name="chair_length" value="${3/2*main_wheel_radius}" /> 	 <!-- From front wheel joint to back wheel joint -->
+  <xacro:property name="chair_width" value="${2*main_wheel_radius - 0.18}" /> <!-- From front wheel right joint to front wheel left joint -->
+  <xacro:property name="chair_length" value="${3/2*main_wheel_radius - 0.052}" /> 	 <!-- From front wheel joint to back wheel joint -->
   <xacro:property name="chair_height" value="0.01" /> 						 <!-- From front wheel joint to head rest -->
   <xacro:property name="chair_weight" value="3.0" />
 	

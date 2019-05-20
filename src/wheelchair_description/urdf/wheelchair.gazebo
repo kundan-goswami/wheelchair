@@ -5,9 +5,9 @@
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
       <updateRate>20</updateRate>
-      <leftJoint>axel_rr_wheel_joint</leftJoint>
-      <rightJoint>axel_rl_wheel_joint</rightJoint>
-      <wheelSeparation>${2*main_wheel_radius}</wheelSeparation>
+      <leftJoint>axle_rr_wheel_joint</leftJoint>
+      <rightJoint>axle_rl_wheel_joint</rightJoint>
+      <wheelSeparation>${axle_length}</wheelSeparation>
       <wheelDiameter>${2*main_wheel_radius}</wheelDiameter>
       <torque>20</torque>
       <commandTopic>cmd_vel</commandTopic>
