@@ -30,7 +30,7 @@
       <parent link="${parent}"/>
       <axis xyz="${axis}" rpy="0 0 0"/>
       <limit effort="100" velocity="100"/>
-      <joint_properties damping="0.1" friction="0.1"/>
+      <joint_properties damping="0.01" friction="0.5"/>
     </joint>
   </xacro:macro>
 

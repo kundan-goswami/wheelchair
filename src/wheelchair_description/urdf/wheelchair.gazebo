@@ -5,31 +5,31 @@
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
       <updateRate>20</updateRate>
-      <leftJoint>axel_l_joint</leftJoint>
-      <rightJoint>axel_r_joint</rightJoint>
-      <wheelSeparation>${main_wheel_radius*2}</wheelSeparation>
-      <wheelDiameter>${main_wheel_radius*2}</wheelDiameter>
+      <leftJoint>axel_rear_left_wheel_joint</leftJoint>
+      <rightJoint>axel_rear_right_wheel_joint</rightJoint>
+      <wheelSeparation>${axle_length}</wheelSeparation>
+      <wheelDiameter>${axle_length}</wheelDiameter>
       <torque>20</torque>
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
-      <robotBaseFrame>base_footprint</robotBaseFrame>
+      <robotBaseFrame>footprint</robotBaseFrame>
     </plugin>
   </gazebo>
 
   <gazebo reference="footprint">
       <material>Gazebo/Green</material>
     </gazebo>
-    <gazebo reference="l">
+    <gazebo reference="rear_right_wheel">
       <material>Gazebo/Blue</material>
     </gazebo>
-    <gazebo reference="r">
+    <gazebo reference="rear_left_wheel">
       <material>Gazebo/Blue</material>
     </gazebo>
-   <gazebo reference="lf">
+   <gazebo reference="front_left_wheel">
       <material>Gazebo/Blue</material>
     </gazebo>
-    <gazebo reference="rf">
+    <gazebo reference="front_right_wheel">
       <material>Gazebo/Blue</material>
     </gazebo>
 
