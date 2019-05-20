@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/kundan/wheelchair_ws/src
+CMAKE_SOURCE_DIR = /home/user/wheelchair/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/kundan/wheelchair_ws/build
+CMAKE_BINARY_DIR = /home/user/wheelchair/build
 
 # Utility rule file for doxygen.
 
@@ -67,6 +67,6 @@ CMakeFiles/doxygen.dir/clean:
 .PHONY : CMakeFiles/doxygen.dir/clean
 
 CMakeFiles/doxygen.dir/depend:
-	cd /home/kundan/wheelchair_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/kundan/wheelchair_ws/src /home/kundan/wheelchair_ws/src /home/kundan/wheelchair_ws/build /home/kundan/wheelchair_ws/build /home/kundan/wheelchair_ws/build/CMakeFiles/doxygen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/user/wheelchair/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/user/wheelchair/src /home/user/wheelchair/src /home/user/wheelchair/build /home/user/wheelchair/build /home/user/wheelchair/build/CMakeFiles/doxygen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/doxygen.dir/depend
 

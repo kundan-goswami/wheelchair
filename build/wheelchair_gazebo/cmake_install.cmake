@@ -1,8 +1,8 @@
-# Install script for directory: /home/kundan/wheelchair_ws/src/wheelchair_gazebo
+# Install script for directory: /home/user/wheelchair/src/wheelchair_gazebo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/kundan/wheelchair_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/user/wheelchair/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/kundan/wheelchair_ws/build/wheelchair_gazebo/catkin_generated/installspace/wheelchair_gazebo.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/user/wheelchair/build/wheelchair_gazebo/catkin_generated/installspace/wheelchair_gazebo.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/wheelchair_gazebo/cmake" TYPE FILE FILES
-    "/home/kundan/wheelchair_ws/build/wheelchair_gazebo/catkin_generated/installspace/wheelchair_gazeboConfig.cmake"
-    "/home/kundan/wheelchair_ws/build/wheelchair_gazebo/catkin_generated/installspace/wheelchair_gazeboConfig-version.cmake"
+    "/home/user/wheelchair/build/wheelchair_gazebo/catkin_generated/installspace/wheelchair_gazeboConfig.cmake"
+    "/home/user/wheelchair/build/wheelchair_gazebo/catkin_generated/installspace/wheelchair_gazeboConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/wheelchair_gazebo" TYPE FILE FILES "/home/kundan/wheelchair_ws/src/wheelchair_gazebo/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/wheelchair_gazebo" TYPE FILE FILES "/home/user/wheelchair/src/wheelchair_gazebo/package.xml")
 endif()
 

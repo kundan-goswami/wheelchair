@@ -1,8 +1,8 @@
-# Install script for directory: /home/kundan/wheelchair_ws/src/wheelchair_description
+# Install script for directory: /home/user/wheelchair/src/wheelchair_description
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/kundan/wheelchair_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/user/wheelchair/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/kundan/wheelchair_ws/build/wheelchair_description/catkin_generated/installspace/wheelchair_description.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/user/wheelchair/build/wheelchair_description/catkin_generated/installspace/wheelchair_description.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/wheelchair_description/cmake" TYPE FILE FILES
-    "/home/kundan/wheelchair_ws/build/wheelchair_description/catkin_generated/installspace/wheelchair_descriptionConfig.cmake"
-    "/home/kundan/wheelchair_ws/build/wheelchair_description/catkin_generated/installspace/wheelchair_descriptionConfig-version.cmake"
+    "/home/user/wheelchair/build/wheelchair_description/catkin_generated/installspace/wheelchair_descriptionConfig.cmake"
+    "/home/user/wheelchair/build/wheelchair_description/catkin_generated/installspace/wheelchair_descriptionConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/wheelchair_description" TYPE FILE FILES "/home/kundan/wheelchair_ws/src/wheelchair_description/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/wheelchair_description" TYPE FILE FILES "/home/user/wheelchair/src/wheelchair_description/package.xml")
 endif()
 

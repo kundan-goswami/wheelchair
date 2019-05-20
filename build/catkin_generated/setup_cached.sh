@@ -7,6 +7,7 @@
 # new environment variables
 
 # modified environment variables
-export LD_LIBRARY_PATH="/home/kundan/catkin_ws/devel/lib:/home/kundan/mybot_ws/devel/lib:/opt/ros/melodic/lib"
-export PKG_CONFIG_PATH="/home/kundan/catkin_ws/devel/lib/pkgconfig:/home/kundan/mybot_ws/devel/lib/pkgconfig:/opt/ros/melodic/lib/pkgconfig"
-export PWD="/home/kundan/wheelchair_ws/build"
+export CMAKE_PREFIX_PATH="/home/user/wheelchair/devel:$CMAKE_PREFIX_PATH"
+export PWD="/home/user/wheelchair/build"
+export ROSLISP_PACKAGE_DIRECTORIES="/home/user/wheelchair/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
+export ROS_PACKAGE_PATH="/home/user/wheelchair/src:$ROS_PACKAGE_PATH"

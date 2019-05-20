@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/kundan/wheelchair_ws/src
+CMAKE_SOURCE_DIR = /home/user/wheelchair/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/kundan/wheelchair_ws/build
+CMAKE_BINARY_DIR = /home/user/wheelchair/build
 
 # Utility rule file for _catkin_empty_exported_target.
 
@@ -63,10 +63,10 @@ wheelchair_description/CMakeFiles/_catkin_empty_exported_target.dir/build: _catk
 .PHONY : wheelchair_description/CMakeFiles/_catkin_empty_exported_target.dir/build
 
 wheelchair_description/CMakeFiles/_catkin_empty_exported_target.dir/clean:
-	cd /home/kundan/wheelchair_ws/build/wheelchair_description && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
+	cd /home/user/wheelchair/build/wheelchair_description && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
 .PHONY : wheelchair_description/CMakeFiles/_catkin_empty_exported_target.dir/clean
 
 wheelchair_description/CMakeFiles/_catkin_empty_exported_target.dir/depend:
-	cd /home/kundan/wheelchair_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/kundan/wheelchair_ws/src /home/kundan/wheelchair_ws/src/wheelchair_description /home/kundan/wheelchair_ws/build /home/kundan/wheelchair_ws/build/wheelchair_description /home/kundan/wheelchair_ws/build/wheelchair_description/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/user/wheelchair/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/user/wheelchair/src /home/user/wheelchair/src/wheelchair_description /home/user/wheelchair/build /home/user/wheelchair/build/wheelchair_description /home/user/wheelchair/build/wheelchair_description/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : wheelchair_description/CMakeFiles/_catkin_empty_exported_target.dir/depend
 

@@ -1,8 +1,8 @@
-prefix=/home/kundan/wheelchair_ws/devel
+prefix=/home/user/wheelchair/devel
 
 Name: wheelchair_description
 Description: Description of wheelchair_description
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/kundan/wheelchair_ws/devel/lib 
+Libs: -L/home/user/wheelchair/devel/lib 
 Requires: 
