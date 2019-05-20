@@ -1,8 +1,0 @@
-prefix=/home/user/wheelchair/devel
-
-Name: wheelchair_gazebo
-Description: Description of wheelchair_gazebo
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/user/wheelchair/devel/lib 
-Requires: 

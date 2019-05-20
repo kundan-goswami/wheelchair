@@ -1,2 +1,0 @@
-wheelchair_description:wheelchair_gazebo
--DCATKIN_DEVEL_PREFIX=/home/user/wheelchair/devel -DCMAKE_INSTALL_PREFIX=/home/user/wheelchair/install -G Unix Makefiles
