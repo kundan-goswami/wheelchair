@@ -18,7 +18,7 @@
   <xacro:property name="chair_width" value="${2*main_wheel_radius - 0.18}" /> <!-- From front wheel right joint to front wheel left joint -->
   <xacro:property name="chair_length" value="${3/2*main_wheel_radius - 0.052}" /> 	 <!-- From front wheel joint to back wheel joint -->
   <xacro:property name="chair_height" value="0.01" /> 						 <!-- From front wheel joint to head rest -->
-  <xacro:property name="chair_weight" value="3.0" />
+  <xacro:property name="chair_weight" value="${3.0+70.0}" />
 	
   <xacro:property name="axle_width" value="0.01" /> 
   <xacro:property name="axle_length" value="${2*main_wheel_radius}"/> 	
@@ -84,11 +84,11 @@
   <wheel  lr="front_right_leg_rev" tY="0.02" xyz=" 0 0 0" rpy="0 0 0" wheelWidth="${main_wheel_length}" wheelRadius="${legs_width}" wheelMass="${legs_weight}" meshFile="wheelchair_wheel_rev"/>
   <wheel_joint parent="front_right_leg" child ="front_right_leg_rev" xyz="0 0 ${-legs_height}" rpy="0 0 0" axis="0 0 1"/>
 
-  <wheel  lr="rl_wheel" tY="0.02" xyz=" 0 0 0" rpy="${-pi/2} 0 0" wheelWidth="${main_wheel_length}" wheelRadius="${main_wheel_radius}" wheelMass="${main_wheel_weight}" meshFile="wheelchair_wheel"/>
-  <wheel_joint parent="axle" child ="rl_wheel" xyz="0 ${main_wheel_radius} 0" rpy="0 0 0" axis="0 1 0"/>
+  <wheel  lr="rear_left_wheel" tY="0.02" xyz=" 0 0 0" rpy="${-pi/2} 0 0" wheelWidth="${main_wheel_length}" wheelRadius="${main_wheel_radius}" wheelMass="${main_wheel_weight}" meshFile="wheelchair_wheel"/>
+  <wheel_joint parent="axle" child ="rear_left_wheel" xyz="0 ${main_wheel_radius} 0" rpy="0 0 0" axis="0 1 0"/>
 
-  <wheel  lr="rr_wheel" tY="0.02" xyz=" 0 0 0" rpy="${pi/2} 0 0" wheelWidth="${main_wheel_length}" wheelRadius="${main_wheel_radius}" wheelMass="${main_wheel_weight}" meshFile="wheelchair_wheel"/>
-  <wheel_joint parent="axle" child ="rr_wheel" xyz="0 ${-main_wheel_radius} 0" rpy="0 0 0" axis="0 1 0"/>
+  <wheel  lr="rear_right_wheel" tY="0.02" xyz=" 0 0 0" rpy="${pi/2} 0 0" wheelWidth="${main_wheel_length}" wheelRadius="${main_wheel_radius}" wheelMass="${main_wheel_weight}" meshFile="wheelchair_wheel"/>
+  <wheel_joint parent="axle" child ="rear_right_wheel" xyz="0 ${-main_wheel_radius} 0" rpy="0 0 0" axis="0 1 0"/>
 
   <wheel  lr="front_left_wheel" tY="0.001" xyz=" 0 0 0" rpy="${pi/2} 0 0" wheelWidth="${small_wheel_length}" wheelRadius="${small_wheel_radius}" wheelMass="${small_wheel_weight}" meshFile="wheelchair_wheel_small"/>
   <wheel_joint parent="front_left_leg_rev" child ="front_left_wheel" xyz="0.04 0 ${-2*small_wheel_radius+0.04}" rpy="0 0 0" axis="0 1 0"/>

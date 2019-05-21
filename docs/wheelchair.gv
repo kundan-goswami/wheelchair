@@ -1,35 +1,35 @@
 digraph G {
 node [shape=box];
 "footprint" [label="footprint"];
-"axel" [label="axel"];
+"axle" [label="axle"];
 "base" [label="base"];
-"left_leg" [label="left_leg"];
-"l_rev" [label="l_rev"];
-"lf" [label="lf"];
-"right_leg" [label="right_leg"];
-"r_rev" [label="r_rev"];
-"rf" [label="rf"];
-"l" [label="l"];
-"r" [label="r"];
+"front_left_leg" [label="front_left_leg"];
+"front_left_leg_rev" [label="front_left_leg_rev"];
+"front_left_wheel" [label="front_left_wheel"];
+"front_right_leg" [label="front_right_leg"];
+"front_right_leg_rev" [label="front_right_leg_rev"];
+"front_right_wheel" [label="front_right_wheel"];
+"rear_left_wheel" [label="rear_left_wheel"];
+"rear_right_wheel" [label="rear_right_wheel"];
 node [shape=ellipse, color=blue, fontcolor=blue];
-"footprint" -> "footprint_axel_joint" [label="xyz: 0 0 0.201784 \nrpy: 0 -0 0"]
-"footprint_axel_joint" -> "axel"
-"axel" -> "axel_base_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
-"axel_base_joint" -> "base"
-"base" -> "base_left_leg_joint" [label="xyz: 0.302676 0.101784 0 \nrpy: 0 -0 0"]
-"base_left_leg_joint" -> "left_leg"
-"left_leg" -> "left_leg_l_rev_joint" [label="xyz: 0 0 -0.0354 \nrpy: 0 -0 0"]
-"left_leg_l_rev_joint" -> "l_rev"
-"l_rev" -> "l_rev_lf_joint" [label="xyz: 0.04 0 -0.096 \nrpy: 0 -0 0"]
-"l_rev_lf_joint" -> "lf"
-"base" -> "base_right_leg_joint" [label="xyz: 0.302676 -0.101784 0 \nrpy: 0 -0 0"]
-"base_right_leg_joint" -> "right_leg"
-"right_leg" -> "right_leg_r_rev_joint" [label="xyz: 0 0 -0.0354 \nrpy: 0 -0 0"]
-"right_leg_r_rev_joint" -> "r_rev"
-"r_rev" -> "r_rev_rf_joint" [label="xyz: 0.04 0 -0.096 \nrpy: 0 -0 0"]
-"r_rev_rf_joint" -> "rf"
-"axel" -> "axel_l_joint" [label="xyz: 0 0.201784 0 \nrpy: 0 -0 0"]
-"axel_l_joint" -> "l"
-"axel" -> "axel_r_joint" [label="xyz: 0 -0.201784 0 \nrpy: 0 -0 0"]
-"axel_r_joint" -> "r"
+"footprint" -> "footprint_axle_joint" [label="xyz: 0 0 0.201784 \nrpy: 0 -0 0"]
+"footprint_axle_joint" -> "axle"
+"axle" -> "axle_base_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"axle_base_joint" -> "base"
+"base" -> "base_front_left_leg_joint" [label="xyz: 0.250676 0.111784 0 \nrpy: 0 -0 0"]
+"base_front_left_leg_joint" -> "front_left_leg"
+"front_left_leg" -> "front_left_leg_front_left_leg_rev_joint" [label="xyz: 0 0 -0.0354 \nrpy: 0 -0 0"]
+"front_left_leg_front_left_leg_rev_joint" -> "front_left_leg_rev"
+"front_left_leg_rev" -> "front_left_leg_rev_front_left_wheel_joint" [label="xyz: 0.04 0 -0.096 \nrpy: 0 -0 0"]
+"front_left_leg_rev_front_left_wheel_joint" -> "front_left_wheel"
+"base" -> "base_front_right_leg_joint" [label="xyz: 0.250676 -0.111784 0 \nrpy: 0 -0 0"]
+"base_front_right_leg_joint" -> "front_right_leg"
+"front_right_leg" -> "front_right_leg_front_right_leg_rev_joint" [label="xyz: 0 0 -0.0354 \nrpy: 0 -0 0"]
+"front_right_leg_front_right_leg_rev_joint" -> "front_right_leg_rev"
+"front_right_leg_rev" -> "front_right_leg_rev_front_right_wheel_joint" [label="xyz: 0.04 0 -0.096 \nrpy: 0 -0 0"]
+"front_right_leg_rev_front_right_wheel_joint" -> "front_right_wheel"
+"axle" -> "axle_rear_left_wheel_joint" [label="xyz: 0 0.201784 0 \nrpy: 0 -0 0"]
+"axle_rear_left_wheel_joint" -> "rear_left_wheel"
+"axle" -> "axle_rear_right_wheel_joint" [label="xyz: 0 -0.201784 0 \nrpy: 0 -0 0"]
+"axle_rear_right_wheel_joint" -> "rear_right_wheel"
 }
