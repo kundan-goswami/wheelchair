@@ -1,0 +1,77 @@
+<?xml version='1.0'?>
+
+<robot name="mdu" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+
+  <xacro:property name="main_wheel_length" value="0.0356884" />
+  <xacro:property name="main_wheel_radius" value="0.127" />
+  <xacro:property name="main_wheel_weight" value="3.0" />
+
+
+	
+  <xacro:property name="axle_width" value="0.01" /> 
+  <xacro:property name="axle_length" value="${2*main_wheel_radius}"/> 	
+  <xacro:property name="axle_height" value="0.01" /> 						
+  <xacro:property name="axle_weight" value="2.0" />
+
+  <xacro:property name="chair_width" value="${axle_length  - 0.5}" /> <!-- From front wheel right joint to front wheel left joint -->
+  <xacro:property name="chair_length" value="${chair_width}" /> 	 <!-- From front wheel joint to back wheel joint -->
+  <xacro:property name="chair_height" value="0.05" /> 				 <!-- From front wheel joint to head rest -->
+  <xacro:property name="chair_weight" value="${10.0}" />
+  
+  <xacro:include filename="$(find wheelchair_description)/urdf/mdu.gazebo" />
+  <xacro:include filename="$(find wheelchair_description)/urdf/materials.xacro" />
+  <xacro:include filename="$(find wheelchair_description)/urdf/macros.xacro" />
+
+  <link name='footprint'>
+	<pose xyz="-10 0 0" rpy=" 0 0 0"/>
+    <visual>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+    <geometry>
+      <box size="0.001 0.001 0.001"/>
+    </geometry>
+    </visual>
+    <!--visual>
+      <origin xyz="0 0 0" rpy="0 0 -3.14"/>
+      <geometry>
+         <mesh filename="package://wheelchair_description/meshes/wheelchair_chasis.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+  </visual-->
+  </link>
+
+  <link name='axle'>
+    <inertial>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <mass value="${axle_weight}"/>
+      <box_inertia m="${axle_weight}" x="${axle_width}" y="${axle_length}" z ="${axle_height}" />
+    </inertial>
+    <collision name='collision'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="${axle_width} ${axle_length} ${axle_height}"/>
+      </geometry>
+    </collision>
+
+
+    <visual>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="${axle_width} ${axle_length} ${axle_height}"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link_joint parent="footprint" child ="axle" xyz="0 0 ${main_wheel_radius}" rpy="0 0 0" type="fixed"/>
+
+  <chassis name="base" xyz="${chair_length/2} 0 0" rpy="0 0 0" m="${chair_weight}" chassisLength="${chair_length}" chassisWidth="${chair_width}" chassisHeight="${chair_height}"/>
+  <link_joint parent="axle" child ="base" xyz="0 0 0" rpy="0 0 0" type="fixed"/>
+
+  
+  <wheel  lr="rear_left_wheel" tY="0.02" xyz=" 0 0 0" rpy="${-pi/2} 0 0" wheelWidth="${main_wheel_length}" wheelRadius="${main_wheel_radius}" wheelMass="${main_wheel_weight}" meshFile="wheelchair_wheel"/>
+  <wheel_joint parent="axle" child ="rear_left_wheel" xyz="0 ${main_wheel_radius} 0" rpy="0 0 0" axis="0 1 0"/>
+
+  <wheel  lr="rear_right_wheel" tY="0.02" xyz=" 0 0 0" rpy="${pi/2} 0 0" wheelWidth="${main_wheel_length}" wheelRadius="${main_wheel_radius}" wheelMass="${main_wheel_weight}" meshFile="wheelchair_wheel"/>
+  <wheel_joint parent="axle" child ="rear_right_wheel" xyz="0 ${-main_wheel_radius} 0" rpy="0 0 0" axis="0 1 0"/>
+
+ 
+</robot>
