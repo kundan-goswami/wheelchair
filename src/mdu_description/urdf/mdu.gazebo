@@ -18,17 +18,17 @@
   </gazebo>
 
   <gazebo reference="footprint">
-      <material>Gazebo/Green</material>
+      <material>Gazebo/Red</material>
     </gazebo>
     <gazebo reference="rear_right_wheel">
-      <material>Gazebo/Blue</material>
+      <material>Gazebo/Black</material>
 	  <mu1 value="200.0"/>
       <mu2 value="100.0"/>
       <kp value="10000000.0" />
       <kd value="1.0" />
     </gazebo>
     <gazebo reference="rear_left_wheel">
-      <material>Gazebo/Blue</material>
+      <material>Gazebo/Black</material>
 	  <mu1 value="200.0"/>
       <mu2 value="100.0"/>
       <kp value="10000000.0" />

@@ -68,15 +68,15 @@
 	  
 	    <!-- This block connects the wheel joint to an actuator (motor), which informs both
 		simulation and visualization of the robot -->
-		<transmission name="${lr}_wheel_trans">
+		<!--transmission name="${lr}_wheel_trans">
 		  <type>transmission_interface/SimpleTransmission</type>
-		  <actuator name="${prefix}_${suffix}_wheel_motor">
+		  <actuator name="${lr}_wheel_motor">
 			<mechanicalReduction>1</mechanicalReduction>
 		  </actuator>
-		  <joint name="${prefix}_${suffix}_wheel_joint">
+		  <joint name="${lr}_motor_wheel_joint">
 			<hardwareInterface>VelocityJointInterface</hardwareInterface>
 		  </joint>
-		</transmission>
+		</transmission-->
     </link>
   </xacro:macro>
  

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot>
-  <gazebo>
+  <!--gazebo>
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
@@ -15,7 +15,7 @@
       <odometryFrame>odom</odometryFrame>
       <robotBaseFrame>footprint</robotBaseFrame>
     </plugin>
-  </gazebo>
+  </gazebo-->
 
   <gazebo reference="footprint">
       <material>Gazebo/Green</material>

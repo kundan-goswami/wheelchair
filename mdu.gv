@@ -1,0 +1,17 @@
+digraph G {
+node [shape=box];
+"footprint" [label="footprint"];
+"axle" [label="axle"];
+"base" [label="base"];
+"rear_left_wheel" [label="rear_left_wheel"];
+"rear_right_wheel" [label="rear_right_wheel"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"footprint" -> "footprint_axle_joint" [label="xyz: 0 0 0.127 \nrpy: 0 -0 0"]
+"footprint_axle_joint" -> "axle"
+"axle" -> "axle_base_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"axle_base_joint" -> "base"
+"axle" -> "axle_rear_left_wheel_joint" [label="xyz: 0 0.127 0 \nrpy: 0 -0 0"]
+"axle_rear_left_wheel_joint" -> "rear_left_wheel"
+"axle" -> "axle_rear_right_wheel_joint" [label="xyz: 0 -0.127 0 \nrpy: 0 -0 0"]
+"axle_rear_right_wheel_joint" -> "rear_right_wheel"
+}

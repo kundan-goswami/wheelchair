@@ -31,6 +31,7 @@
   <xacro:include filename="$(find wheelchair_description)/urdf/macros.xacro" />
 
   <link name='footprint'>
+    <pose xyz="10 0 0" rpy=" 0 0 0"/>
     <visual>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
     <geometry>
@@ -71,6 +72,8 @@
 
   <chassis name="base" xyz="${chair_length/2} 0 0" rpy="0 0 0" m="${chair_weight}" chassisLength="${chair_length}" chassisWidth="${chair_width}" chassisHeight="${chair_height}"/>
   <link_joint parent="axle" child ="base" xyz="0 0 0" rpy="0 0 0" type="fixed"/>
+  <chassis name="base1" xyz="0 0 ${-0.15/2}" rpy="0 0 0" m="0.1" chassisLength="0.02" chassisWidth="${chair_width}" chassisHeight="0.15"/>
+  <link_joint parent="axle" child ="base1" xyz="0 0 0" rpy="0 0 0" type="fixed"/>
 
   <chassis name="front_left_leg" xyz="0 0 ${-legs_height/2}" rpy="0 0 0" m="${legs_weight}" chassisLength="${legs_length}" chassisWidth="${legs_width}" chassisHeight="${legs_height}"/>
   <link_joint parent="base" child ="front_left_leg" xyz="${chair_length} ${chair_width/2} 0" rpy="0 0 0" type="fixed"/>
