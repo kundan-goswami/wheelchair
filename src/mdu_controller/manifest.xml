@@ -1,0 +1,15 @@
+<package>
+  <description brief="mdu_controller">
+
+     mdu_controller
+
+  </description>
+  <author>ROS</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/mdu_controller</url>
+  <depend package="rospy"/>
+
+</package>
+
+
