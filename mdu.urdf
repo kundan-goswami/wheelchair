@@ -9,8 +9,8 @@
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
       <updateRate>20</updateRate>
-      <leftJoint>chassis_rear_left_wheel_joint</leftJoint>
-      <rightJoint>chassis_rear_right_wheel_joint</rightJoint>
+      <leftJoint>axle_rear_left_wheel_joint</leftJoint>
+      <rightJoint>axle_rear_right_wheel_joint</rightJoint>
       <wheelSeparation>0.28</wheelSeparation>
       <wheelDiameter>0.254</wheelDiameter>
       <torque>20</torque>
@@ -20,14 +20,23 @@
       <robotBaseFrame>footprint</robotBaseFrame>
     </plugin>
   </gazebo>
-  <gazebo reference="chassis">
+  <gazebo reference="footprint">
     <material>Gazebo/Red</material>
   </gazebo>
   <gazebo reference="rear_right_wheel">
     <material>Gazebo/Black</material>
+    <mu1 value="200.0"/>
+    <mu2 value="100.0"/>
+    <kp value="10000000.0"/>
+    <kd value="1.0"/>
   </gazebo>
   <gazebo reference="rear_left_wheel">
     <material>Gazebo/Black</material>
+    <mu1 value="200.0"/>
+    <mu2 value="100.0"/>
+    <kp value="10000000.0"/>
+    <kd value="1.0"/>
+    <fdir1 value="1 0 0"/>
   </gazebo>
   <material name="black">
     <color rgba="0.0 0.0 0.0 1.0"/>
@@ -53,25 +62,43 @@
   <material name="white">
     <color rgba="1.0 1.0 1.0 1.0"/>
   </material>
-  <link name="chassis">
-    <inertial name="chassis_intertial">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="6.0"/>
-      <inertia ixx="0.03145" ixy="0" ixz="0" iyy="0.05945" iyz="0" izz="0.05945"/>
-    </inertial>
-    <collision name="collision">
+  <link name="footprint">
+    <pose rpy=" 0 0 0" xyz="0 0 0"/>
+    <visual>
+      <origin rpy=" 0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.33 0.23 0.1"/>
-      </geometry>
-    </collision>
-    <visual name="chassis_visual">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.33 0.23 0.1"/>
+        <box size="0.01 0.01 0.01"/>
       </geometry>
     </visual>
+    <!--visual>
+      <origin xyz="0 0 0" rpy="0 0 -3.14"/>
+      <geometry>
+         <mesh filename="package://wheelchair_description/meshes/wheelchair_chasis.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+  </visual-->
+  </link>
+  <link name="axle">
+    <inertial>
+      <origin rpy=" 0 0 0" xyz="0 0 0"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.0130833333333" ixy="0" ixz="0" iyy="3.33333333333e-05" iyz="0" izz="3.33333333333e-05"/>
+    </inertial>
+    <collision name="collision">
+      <origin rpy=" 0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.28 0.01"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy=" 0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.28 0.01"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="caster">
     <collision name="caster_collision">
-      <origin rpy=" 0 0 0" xyz="-0.1015 0 -0.0635"/>
+      <origin rpy=" 0 0 0" xyz="0 0 0"/>
       <geometry>
         <sphere radius="0.0635"/>
       </geometry>
@@ -87,18 +114,44 @@
       </surface>
     </collision>
     <visual name="caster_visual">
-      <origin rpy=" 0 0 0" xyz="-0.1015 0 -0.0635"/>
+      <origin rpy=" 0 0 0" xyz="0 0 0"/>
       <geometry>
         <sphere radius="0.0635"/>
       </geometry>
     </visual>
   </link>
-  <link name="footprint">
-  </link>
-  <joint name="footprint_chassis_joint" type="fixed">
+  <joint name="footprint_axle_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.127"/>
     <parent link="footprint"/>
-    <child link="chassis"/>
+    <child link="axle"/>
+  </joint>
+  <link name="base">
+    <collision name="base_chassis_collision">
+      <geometry>
+        <box size="0.13 0.23 0.15"/>
+      </geometry>
+    </collision>
+    <visual name="base_visual">
+      <origin rpy="0 0 0" xyz="0.065 0 0"/>
+      <geometry>
+        <box size="0.13 0.23 0.15"/>
+      </geometry>
+    </visual>
+    <inertial name="base_intertial">
+      <origin rpy="0 0 0" xyz="0.065 0 0"/>
+      <mass value="10.0"/>
+      <inertia ixx="0.0628333333333" ixy="0" ixz="0" iyy="0.0328333333333" iyz="0" izz="0.0328333333333"/>
+    </inertial>
+  </link>
+  <joint name="axle_base_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="axle"/>
+    <child link="base"/>
+  </joint>
+  <joint name="base_caster_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0665 0 -0.0635"/>
+    <parent link="base"/>
+    <child link="caster"/>
   </joint>
   <link name="rear_left_wheel">
     <collision name="rear_left_wheel_collision">
@@ -124,8 +177,8 @@
       </visual-->
     <inertial name="rear_left_wheel_visual_intertial">
       <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
-      <mass value="2.0"/>
-      <inertia ixx="0.00848116666667" ixy="0" ixz="0" iyy="0.00848116666667" iyz="0" izz="0.016129"/>
+      <mass value="3.0"/>
+      <inertia ixx="0.01272175" ixy="0" ixz="0" iyy="0.01272175" iyz="0" izz="0.0241935"/>
     </inertial>
     <!-- This block connects the wheel joint to an actuator (motor), which informs both
 		simulation and visualization of the robot -->
@@ -139,10 +192,10 @@
 		  </joint>
 		</transmission-->
   </link>
-  <joint name="chassis_rear_left_wheel_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.04 0.135 0"/>
+  <joint name="axle_rear_left_wheel_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0 0.14 0"/>
     <child link="rear_left_wheel"/>
-    <parent link="chassis"/>
+    <parent link="axle"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <joint_properties damping="0.01" friction="0.5"/>
@@ -171,8 +224,8 @@
       </visual-->
     <inertial name="rear_right_wheel_visual_intertial">
       <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
-      <mass value="2.0"/>
-      <inertia ixx="0.00848116666667" ixy="0" ixz="0" iyy="0.00848116666667" iyz="0" izz="0.016129"/>
+      <mass value="3.0"/>
+      <inertia ixx="0.01272175" ixy="0" ixz="0" iyy="0.01272175" iyz="0" izz="0.0241935"/>
     </inertial>
     <!-- This block connects the wheel joint to an actuator (motor), which informs both
 		simulation and visualization of the robot -->
@@ -186,10 +239,10 @@
 		  </joint>
 		</transmission-->
   </link>
-  <joint name="chassis_rear_right_wheel_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.04 -0.135 0"/>
+  <joint name="axle_rear_right_wheel_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0 -0.14 0"/>
     <child link="rear_right_wheel"/>
-    <parent link="chassis"/>
+    <parent link="axle"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <joint_properties damping="0.01" friction="0.5"/>

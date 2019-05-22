@@ -6,7 +6,7 @@
   <arg name="use_sim_time" default="true"/>
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
-  <arg name="debug" default="true"/>
+  <arg name="debug" default="false"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find wheelchair_gazebo)/worlds/wheelchair.world"/>
@@ -19,12 +19,9 @@
   </include>
 
 
-  <param name="wheelchair_description" command="$(find xacro)/xacro '$(find wheelchair_description)/urdf/wheelchair.xacro'"/>
   <param name="mdu_description" command="$(find xacro)/xacro '$(find mdu_description)/urdf/mdu.xacro'"/>
-  
-  <node name="wheelchair" pkg="gazebo_ros" type="spawn_model" output="screen" 
-   args="-x 0.5 -y 0 -z 0 -urdf -param wheelchair_description -model wheelchair" />
-  <node name="mdu" pkg="gazebo_ros" type="spawn_model" output="screen" 
+
+  <node name="mdu" pkg="gazebo_ros" type="spawn_model" output="screen"
    args="-urdf -param mdu_description -model mud" />
 
 </launch>
