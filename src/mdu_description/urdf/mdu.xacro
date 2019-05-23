@@ -12,10 +12,10 @@
   <xacro:property name="axle_height" value="0.01" /> 						
   <xacro:property name="axle_weight" value="2.0" />
 
-  <xacro:property name="chassis_width" value="${axle_length  - 0.05}" /> <!-- From front wheel right joint to front wheel left joint -->
+  <xacro:property name="chassis_width" value="${axle_length  - 0.1}" /> <!-- From front wheel right joint to front wheel left joint -->
   <xacro:property name="chassis_length" value="${chassis_width + 0.1}" /> 	 <!-- From front wheel joint to back wheel joint -->
-  <xacro:property name="chassis_height" value="0.1" /> 				 <!-- From front wheel joint to head rest -->
-  <xacro:property name="chassis_weight" value="${6.0}" />
+  <xacro:property name="chassis_height" value="0.2" /> 				 <!-- From front wheel joint to head rest -->
+  <xacro:property name="chassis_weight" value="${20.0}" />
   
   <xacro:include filename="$(find mdu_description)/urdf/mdu.gazebo" />
   <xacro:include filename="$(find mdu_description)/urdf/materials.xacro" />
@@ -70,10 +70,10 @@
   </link>
   <link_joint parent='footprint' child='chassis' xyz="0 0 ${main_wheel_radius}" rpy="0 0 0" type="fixed"/>
   <wheel  lr="rear_left_wheel" tY="0.02" xyz=" 0 0 0" rpy="${-pi/2} 0 0" wheelWidth="${main_wheel_length}" wheelRadius="${main_wheel_radius}" wheelMass="${main_wheel_weight}" meshFile="wheelchair_wheel"/>
-  <wheel_joint parent="chassis" child ="rear_left_wheel" xyz="0.03 ${chassis_width/2 +0.02} 0" rpy="0 0 0" axis="0 1 0"/>
+  <wheel_joint parent="chassis" child ="rear_left_wheel" xyz="0.01 ${chassis_width/2 +0.02} 0" rpy="0 0 0" axis="0 1 0"/>
 
   <wheel  lr="rear_right_wheel" tY="0.02" xyz=" 0 0 0" rpy="${pi/2} 0 0" wheelWidth="${main_wheel_length}" wheelRadius="${main_wheel_radius}" wheelMass="${main_wheel_weight}" meshFile="wheelchair_wheel"/>
-  <wheel_joint parent="chassis" child ="rear_right_wheel" xyz="0.03 ${-chassis_width/2 - 0.02} 0" rpy="0 0 0" axis="0 1 0"/>
+  <wheel_joint parent="chassis" child ="rear_right_wheel" xyz="0.01 ${-chassis_width/2 - 0.02} 0" rpy="0 0 0" axis="0 1 0"/>
 
  
 </robot>

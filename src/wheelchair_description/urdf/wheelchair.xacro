@@ -18,7 +18,7 @@
   <xacro:property name="chair_width" value="${2*main_wheel_radius - 0.08}" /> <!-- From front wheel right joint to front wheel left joint -->
   <xacro:property name="chair_length" value="${3/2*main_wheel_radius - 0.052}" /> 	 <!-- From front wheel joint to back wheel joint -->
   <xacro:property name="chair_height" value="0.01" /> 						 <!-- From front wheel joint to head rest -->
-  <xacro:property name="chair_weight" value="${3.0+70.0}" />
+  <xacro:property name="chair_weight" value="${3.0}" />
 	
   <xacro:property name="axle_width" value="0.01" /> 
   <xacro:property name="axle_length" value="${2*main_wheel_radius}"/> 	
@@ -100,6 +100,13 @@
 
   <wheel  lr="front_right_wheel" tY="0.001" xyz=" 0 0 0" rpy="${pi/2} 0 0" wheelWidth="${small_wheel_length}" wheelRadius="${small_wheel_radius}" wheelMass="${small_wheel_weight}" meshFile="wheelchair_wheel_small"/>
   <wheel_joint parent="front_right_leg_rev" child ="front_right_wheel" xyz="0.017 0 ${-0.07352}" rpy="0 0 0" axis="0 1 0"/>
+  
+   <sphere_ name="person_body" xyz="0 0 0" rpy="0 0 0" m="60" r="${chair_width/2}"/>
+   <link_joint parent="base" child ="person_body" xyz="${chair_width/2} 0 ${chair_width/2}" rpy="0 0 0" type="fixed"/> 
 
+   <sphere_ name="person_head" xyz="0 0 0" rpy="0 0 0" m="5" r="${chair_width/4}"/>
+   <link_joint parent="person_body" child ="person_head" xyz="0 0 ${chair_width/2}" rpy="0 0 0" type="fixed"/>
+ 
+ 
 
 </robot>

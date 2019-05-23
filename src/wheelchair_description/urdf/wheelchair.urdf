@@ -473,4 +473,70 @@
     <limit effort="100" velocity="100"/>
     <joint_properties damping="0.01" friction="0.5"/>
   </joint>
+  <link name="person_body">
+    <collision name="person_body_collision">
+      <geometry>
+        <sphere radius="0.161784"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0</mu>
+            <mu2>0</mu2>
+            <slip1>0.0</slip1>
+            <slip2>0.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="person_body_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.161784"/>
+      </geometry>
+    </visual>
+    <inertial name="person_body_intertial">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="60"/>
+      <inertia ixx="0.628177503744" ixy="0" ixz="0" iyy="0.628177503744" iyz="0" izz="0.628177503744"/>
+    </inertial>
+  </link>
+  <joint name="base_person_body_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.161784 0 0.161784"/>
+    <parent link="base"/>
+    <child link="person_body"/>
+  </joint>
+  <link name="person_head">
+    <collision name="person_head_collision">
+      <geometry>
+        <sphere radius="0.080892"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0</mu>
+            <mu2>0</mu2>
+            <slip1>0.0</slip1>
+            <slip2>0.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="person_head_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.080892"/>
+      </geometry>
+    </visual>
+    <inertial name="person_head_intertial">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5"/>
+      <inertia ixx="0.013087031328" ixy="0" ixz="0" iyy="0.013087031328" iyz="0" izz="0.013087031328"/>
+    </inertial>
+  </link>
+  <joint name="person_body_person_head_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.161784"/>
+    <parent link="person_body"/>
+    <child link="person_head"/>
+  </joint>
 </robot>

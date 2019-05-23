@@ -22,16 +22,18 @@ class Mdu:
         self.pose_subscriber = rospy.Subscriber('odom',Odometry,self.update_pose)
 
         self.pose = Pose()
+        self.theta = 0
         self.rate = rospy.Rate(10)
 
     def update_pose(self, data):
         """Callback function which is called when a new message of type Pose is
         received by the subscriber."""
         self.pose = data.pose.pose.position
-        print(data.pose.pose)
+ 	self.theta = data.pose.pose.orientation.z
+        #print(data.pose.pose)
         self.pose.x = round(self.pose.x, 4)
         self.pose.y = round(self.pose.y, 4)
-	print(self.pose.x)
+	#print(self.theta)
 
     def euclidean_distance(self, goal_pose):
         """Euclidean distance between current pose and the goal."""
@@ -46,7 +48,7 @@ class Mdu:
         return atan2(goal_pose.y - self.pose.y, goal_pose.x - self.pose.x)
 
     def angular_vel(self, goal_pose, constant=6):
-        return constant * (self.steering_angle(goal_pose) - self.pose.theta)
+        return constant * (self.steering_angle(goal_pose) - self.theta)
 
     def move2goal(self):
         """Moves the turtle to the goal."""

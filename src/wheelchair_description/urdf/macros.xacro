@@ -100,6 +100,38 @@
     </transmission>
   -->
 
+<xacro:macro name="sphere_" params="name xyz rpy m r">
+    <link name="${name}">
+      <collision name='${name}_collision'>
+        <geometry>
+        <sphere radius="${r}"/>
+	 </geometry>
+	<surface>
+	<friction>
+	  <ode>
+	    <mu>0</mu>
+	    <mu2>0</mu2>
+	    <slip1>0.0</slip1>
+	    <slip2>0.0</slip2>
+	  </ode>
+	</friction>
+	</surface>
+	     
+      </collision>
+      <visual name='${name}_visual'>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+         <geometry>
+            <sphere radius="${r}"/>
+        </geometry>
+      </visual>
+      <inertial name="${name}_intertial">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <mass value="${m}"/>
+        <sphere_inertia m="${m}" r ="${r}" />
+      </inertial>
+    </link>
+  </xacro:macro>
+
 <xacro:macro name="chassis" params="name xyz rpy m chassisLength chassisWidth chassisHeight">
     <link name="${name}">
       <collision name='${name}_chassis_collision'>

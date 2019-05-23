@@ -11,7 +11,7 @@
       <updateRate>20</updateRate>
       <leftJoint>chassis_rear_left_wheel_joint</leftJoint>
       <rightJoint>chassis_rear_right_wheel_joint</rightJoint>
-      <wheelSeparation>0.28</wheelSeparation>
+      <wheelSeparation>0.3</wheelSeparation>
       <wheelDiameter>0.254</wheelDiameter>
       <torque>20</torque>
       <commandTopic>cmd_vel</commandTopic>
@@ -56,22 +56,22 @@
   <link name="chassis">
     <inertial name="chassis_intertial">
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="6.0"/>
-      <inertia ixx="0.03145" ixy="0" ixz="0" iyy="0.05945" iyz="0" izz="0.05945"/>
+      <mass value="20.0"/>
+      <inertia ixx="0.133333333333" ixy="0" ixz="0" iyy="0.216666666667" iyz="0" izz="0.216666666667"/>
     </inertial>
     <collision name="collision">
       <geometry>
-        <box size="0.33 0.23 0.1"/>
+        <box size="0.3 0.2 0.2"/>
       </geometry>
     </collision>
     <visual name="chassis_visual">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.33 0.23 0.1"/>
+        <box size="0.3 0.2 0.2"/>
       </geometry>
     </visual>
     <collision name="caster_collision">
-      <origin rpy=" 0 0 0" xyz="-0.1015 0 -0.0635"/>
+      <origin rpy=" 0 0 0" xyz="-0.0865 0 -0.0635"/>
       <geometry>
         <sphere radius="0.0635"/>
       </geometry>
@@ -87,7 +87,7 @@
       </surface>
     </collision>
     <visual name="caster_visual">
-      <origin rpy=" 0 0 0" xyz="-0.1015 0 -0.0635"/>
+      <origin rpy=" 0 0 0" xyz="-0.0865 0 -0.0635"/>
       <geometry>
         <sphere radius="0.0635"/>
       </geometry>
@@ -140,7 +140,7 @@
 		</transmission-->
   </link>
   <joint name="chassis_rear_left_wheel_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.04 0.135 0"/>
+    <origin rpy="0 0 0" xyz="0.01 0.12 0"/>
     <child link="rear_left_wheel"/>
     <parent link="chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
@@ -187,7 +187,7 @@
 		</transmission-->
   </link>
   <joint name="chassis_rear_right_wheel_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.04 -0.135 0"/>
+    <origin rpy="0 0 0" xyz="0.01 -0.12 0"/>
     <child link="rear_right_wheel"/>
     <parent link="chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
