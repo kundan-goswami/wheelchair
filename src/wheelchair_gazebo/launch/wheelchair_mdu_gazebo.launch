@@ -19,8 +19,8 @@
   </include>
 
 
-  <param name="wheelchair_description" command="$(find xacro)/xacro '$(find wheelchair_description)/urdf/wheelchair.xacro'"/>
-  <param name="mdu_description" command="$(find xacro)/xacro '$(find mdu_description)/urdf/mdu.xacro'"/>
+  <param name="wheelchair_description" command="$(find xacro)/xacro.py '$(find wheelchair_description)/urdf/wheelchair.xacro'"/>
+  <param name="mdu_description" command="$(find xacro)/xacro.py '$(find mdu_description)/urdf/mdu.xacro'"/>
   
   <node name="wheelchair" pkg="gazebo_ros" type="spawn_model" output="screen" 
    args="-x 0.5 -y 0 -z 0 -urdf -param wheelchair_description -model wheelchair" />

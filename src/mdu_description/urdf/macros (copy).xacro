@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<robot name="macro" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <xacro:macro name="cylinder_inertia" params="m r h">
+    <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
+      iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
+      izz="${m*r*r/2}"
+    />
+  </xacro:macro>
+
+  <xacro:macro name="box_inertia" params="m x y z">
+    <inertia  ixx="${m*(y*y+z*z)/12}" ixy = "0" ixz = "0"
+      iyy="${m*(x*x+z*z)/12}" iyz = "0"
+      izz="${m*(x*x+z*z)/12}"
+    />
+  </xacro:macro>
+
+  <xacro:macro name="sphere_inertia" params="m r">
+    <inertia  ixx="${2*m*r*r/5}" ixy = "0" ixz = "0"
+      iyy="${2*m*r*r/5}" iyz = "0"
+      izz="${2*m*r*r/5}"
+    />
+  </xacro:macro>
+
+  <xacro:macro name="wheel_joint" params="parent child xyz rpy axis">
+    <joint type="continuous" name="${parent}_${child}_joint">
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <child link="${child}"/>
+      <parent link="${parent}"/>
+      <axis xyz="${axis}" rpy="0 0 0"/>
+      <limit effort="100" velocity="100"/>
+      <joint_properties damping="0.01" friction="0.5"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="wheel" params="lr tY xyz rpy wheelWidth wheelRadius wheelMass meshFile">
+    <link name="${lr}">
+      <collision name="${lr}_collision">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+        </geometry>
+      </collision>
+    
+      <visual name="${lr}_visual">
+        <transparency>0.1</transparency>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <cylinder length="${wheelWidth - tY}" radius="${wheelRadius}"/>
+        </geometry>
+
+        <material name="green"/>
+      </visual>
+
+      <!--visual name="${lr}_visual_mesh">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+
+        <geometry>
+          <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
+        </geometry>
+      </visual-->
+      <inertial name="${lr}_visual_intertial">
+        <origin xyz="0 0 0" rpy="0 ${pi/2} ${pi/2}" />
+        <mass value="${wheelMass}"/>
+        <cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}"/>
+      </inertial>
+	  
+	    <!-- This block connects the wheel joint to an actuator (motor), which informs both
+		simulation and visualization of the robot -->
+		<!--transmission name="${lr}_wheel_trans">
+		  <type>transmission_interface/SimpleTransmission</type>
+		  <actuator name="${lr}_wheel_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		  </actuator>
+		  <joint name="${lr}_motor_wheel_joint">
+			<hardwareInterface>VelocityJointInterface</hardwareInterface>
+		  </joint>
+		</transmission-->
+    </link>
+  </xacro:macro>
+ 
+ <xacro:macro name="wheel_" params="lr tY xyz rpy wheelWidth wheelRadius wheelMass meshFile">
+    <link name="${lr}">
+    
+      <visual name="${lr}_visual">
+        <transparency>0.1</transparency>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <cylinder length="${wheelWidth - tY}" radius="${wheelRadius}"/>
+        </geometry>
+
+        <material name="green"/>
+      </visual>
+
+      <inertial name="${lr}_visual_intertial">
+        <origin xyz="0 0 0" rpy="0 ${pi/2} ${pi/2}" />
+        <mass value="${wheelMass}"/>
+        <cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}"/>
+      </inertial>
+	
+    </link>
+  </xacro:macro>
+ 
+
+
+
+<xacro:macro name="chassis" params="name xyz rpy m chassisLength chassisWidth chassisHeight">
+    <link name="${name}">
+      <collision name='${name}_chassis_collision'>
+        <geometry>
+          <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/>
+        </geometry>
+      </collision>
+      <visual name='${name}_visual'>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+          <geometry>
+            <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/>
+        </geometry>
+      </visual>
+      <inertial name="${name}_intertial">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <mass value="${m}"/>
+        <box_inertia m="${m}" x="${chassisLength}" y="${chassisWidth}" z ="${chassisHeight}" />
+      </inertial>
+    </link>
+  </xacro:macro>
+  <xacro:macro name="link_joint" params="parent child xyz rpy type">
+    <joint type="${type}" name="${parent}_${child}_joint">
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <parent link="${parent}"/>
+      <child link="${child}"/>
+
+    </joint>
+  </xacro:macro>
+
+</robot>

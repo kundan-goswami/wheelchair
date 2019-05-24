@@ -91,6 +91,249 @@
       </actuator>
     </transmission>
   -->
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>40</updateRate>
+      <leftJoint>chassis_rear_left_wheel_mdu_joint</leftJoint>
+      <rightJoint>chassis_rear_right_wheel_mdu_joint</rightJoint>
+      <wheelSeparation>0.25</wheelSeparation>
+      <wheelDiameter>0.254</wheelDiameter>
+      <torque>40</torque>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>footprint_mdu</robotBaseFrame>
+    </plugin>
+  </gazebo>
+  <gazebo reference="chassis">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="rear_right_wheel_mdu">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="rear_left_wheel_mdu">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <link name="chassis">
+    <inertial name="chassis_intertial">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="15.0"/>
+      <inertia ixx="0.128125" ixy="0" ixz="0" iyy="0.281125" iyz="0" izz="0.281125"/>
+    </inertial>
+    <collision name="collision">
+      <geometry>
+        <box size="0.43 0.25 0.2"/>
+      </geometry>
+    </collision>
+    <visual name="chassis_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.43 0.25 0.2"/>
+      </geometry>
+    </visual>
+    <collision name="caster_collision">
+      <origin rpy=" 0 0 0" xyz="-0.1515 0 -0.0635"/>
+      <geometry>
+        <sphere radius="0.0635"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.5</mu>
+            <mu2>0.5</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="caster_visual">
+      <origin rpy=" 0 0 0" xyz="-0.1515 0 -0.0635"/>
+      <geometry>
+        <sphere radius="0.0635"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="rear_left_wheel_mdu">
+    <collision name="rear_left_wheel_mdu_collision">
+      <origin rpy="-1.57079632679 0 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.127"/>
+      </geometry>
+    </collision>
+    <visual name="rear_left_wheel_mdu_visual">
+      <transparency>0.1</transparency>
+      <origin rpy="-1.57079632679 0 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.03" radius="0.127"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <!--visual name="${lr}_visual_mesh">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+
+        <geometry>
+          <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
+        </geometry>
+      </visual-->
+    <inertial name="rear_left_wheel_mdu_visual_intertial">
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.00848116666667" ixy="0" ixz="0" iyy="0.00848116666667" iyz="0" izz="0.016129"/>
+    </inertial>
+    <!-- This block connects the wheel joint to an actuator (motor), which informs both
+		simulation and visualization of the robot -->
+    <!--transmission name="${lr}_wheel_trans">
+		  <type>transmission_interface/SimpleTransmission</type>
+		  <actuator name="${lr}_wheel_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		  </actuator>
+		  <joint name="${lr}_motor_wheel_joint">
+			<hardwareInterface>VelocityJointInterface</hardwareInterface>
+		  </joint>
+		</transmission-->
+  </link>
+  <joint name="chassis_rear_left_wheel_mdu_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0.05 0.145 0"/>
+    <child link="rear_left_wheel_mdu"/>
+    <parent link="chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.01" friction="0.5"/>
+  </joint>
+  <link name="rear_right_wheel_mdu">
+    <collision name="rear_right_wheel_mdu_collision">
+      <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.127"/>
+      </geometry>
+    </collision>
+    <visual name="rear_right_wheel_mdu_visual">
+      <transparency>0.1</transparency>
+      <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.03" radius="0.127"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <!--visual name="${lr}_visual_mesh">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+
+        <geometry>
+          <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
+        </geometry>
+      </visual-->
+    <inertial name="rear_right_wheel_mdu_visual_intertial">
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.00848116666667" ixy="0" ixz="0" iyy="0.00848116666667" iyz="0" izz="0.016129"/>
+    </inertial>
+    <!-- This block connects the wheel joint to an actuator (motor), which informs both
+		simulation and visualization of the robot -->
+    <!--transmission name="${lr}_wheel_trans">
+		  <type>transmission_interface/SimpleTransmission</type>
+		  <actuator name="${lr}_wheel_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		  </actuator>
+		  <joint name="${lr}_motor_wheel_joint">
+			<hardwareInterface>VelocityJointInterface</hardwareInterface>
+		  </joint>
+		</transmission-->
+  </link>
+  <joint name="chassis_rear_right_wheel_mdu_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0.05 -0.145 0"/>
+    <child link="rear_right_wheel_mdu"/>
+    <parent link="chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.01" friction="0.5"/>
+  </joint>
+  <link name="front_right_pipe">
+    <collision name="front_right_pipe_collision">
+      <origin rpy="0 1.57079632679 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.015"/>
+      </geometry>
+    </collision>
+    <visual name="front_right_pipe_visual">
+      <transparency>0.1</transparency>
+      <origin rpy="0 1.57079632679 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.009" radius="0.015"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <!--visual name="${lr}_visual_mesh">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+
+        <geometry>
+          <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
+        </geometry>
+      </visual-->
+    <inertial name="front_right_pipe_visual_intertial">
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="3.22916666667e-05" ixy="0" ixz="0" iyy="3.22916666667e-05" iyz="0" izz="5.625e-05"/>
+    </inertial>
+    <!-- This block connects the wheel joint to an actuator (motor), which informs both
+		simulation and visualization of the robot -->
+    <!--transmission name="${lr}_wheel_trans">
+		  <type>transmission_interface/SimpleTransmission</type>
+		  <actuator name="${lr}_wheel_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		  </actuator>
+		  <joint name="${lr}_motor_wheel_joint">
+			<hardwareInterface>VelocityJointInterface</hardwareInterface>
+		  </joint>
+		</transmission-->
+  </link>
+  <!--link_joint parent='front_right_pipe' child='chassis' xyz="${chassis_length_mdu/2 } ${chassis_width__mdu/2 - 0.10} ${(0.082 + 0.00280)}" rpy="0 0 0" type="fixed"/-->
+  <link name="front_left_pipe">
+    <collision name="front_left_pipe_collision">
+      <origin rpy="0 1.57079632679 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.015"/>
+      </geometry>
+    </collision>
+    <visual name="front_left_pipe_visual">
+      <transparency>0.1</transparency>
+      <origin rpy="0 1.57079632679 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.009" radius="0.015"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <!--visual name="${lr}_visual_mesh">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+
+        <geometry>
+          <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
+        </geometry>
+      </visual-->
+    <inertial name="front_left_pipe_visual_intertial">
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="3.22916666667e-05" ixy="0" ixz="0" iyy="3.22916666667e-05" iyz="0" izz="5.625e-05"/>
+    </inertial>
+    <!-- This block connects the wheel joint to an actuator (motor), which informs both
+		simulation and visualization of the robot -->
+    <!--transmission name="${lr}_wheel_trans">
+		  <type>transmission_interface/SimpleTransmission</type>
+		  <actuator name="${lr}_wheel_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		  </actuator>
+		  <joint name="${lr}_motor_wheel_joint">
+			<hardwareInterface>VelocityJointInterface</hardwareInterface>
+		  </joint>
+		</transmission-->
+  </link>
+  <joint name="front_left_pipe_chassis_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.215 -0.065 0.0848"/>
+    <parent link="front_left_pipe"/>
+    <child link="chassis"/>
+  </joint>
   <link name="footprint">
     <pose rpy=" 0 0 0" xyz="1 0 0"/>
     <visual>
@@ -144,8 +387,8 @@
     </visual>
     <inertial name="base_intertial">
       <origin rpy="0 0 0" xyz="0.125338 0 0"/>
-      <mass value="73.0"/>
-      <inertia ixx="0.637510524629" ixy="0" ixz="0" iyy="0.382875613271" iyz="0" izz="0.382875613271"/>
+      <mass value="3.0"/>
+      <inertia ixx="0.026199062656" ixy="0" ixz="0" iyy="0.015734614244" iyz="0" izz="0.015734614244"/>
     </inertial>
   </link>
   <joint name="axle_base_joint" type="fixed">
@@ -195,7 +438,7 @@
     </inertial>
   </link>
   <joint name="base_rear_left_leg_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.161784 0"/>
+    <origin rpy="0 0 0" xyz="0 0.061784 0"/>
     <parent link="base"/>
     <child link="rear_left_leg"/>
   </joint>
@@ -218,7 +461,7 @@
     </inertial>
   </link>
   <joint name="base_rear_right_leg_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 -0.161784 0"/>
+    <origin rpy="0 0 0" xyz="0 -0.061784 0"/>
     <parent link="base"/>
     <child link="rear_right_leg"/>
   </joint>
@@ -249,11 +492,10 @@
     <collision name="front_left_leg_rev_collision">
       <origin rpy="0 0 0" xyz=" 0 0 0"/>
       <geometry>
-        <cylinder length="0.1" radius="0.01"/>
+        <mesh filename="package://wheelchair_description/meshes/wheelchair_wheel_rev.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
-    <!--
-      <visual name="${lr}_visual">
+    <!--visual name="${lr}_visual">
         <transparency>0.1</transparency>
         <origin xyz="${xyz}" rpy="${rpy}" />
         <geometry>
@@ -261,8 +503,7 @@
         </geometry>
 
         <material name="green"/>
-      </visual>
-    -->
+      </visual-->
     <visual name="front_left_leg_rev_visual_mesh">
       <origin rpy="0 0 0" xyz=" 0 0 0"/>
       <geometry>
@@ -287,11 +528,10 @@
     <collision name="front_right_leg_rev_collision">
       <origin rpy="0 0 0" xyz=" 0 0 0"/>
       <geometry>
-        <cylinder length="0.1" radius="0.01"/>
+        <mesh filename="package://wheelchair_description/meshes/wheelchair_wheel_rev.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
-    <!--
-      <visual name="${lr}_visual">
+    <!--visual name="${lr}_visual">
         <transparency>0.1</transparency>
         <origin xyz="${xyz}" rpy="${rpy}" />
         <geometry>
@@ -299,8 +539,7 @@
         </geometry>
 
         <material name="green"/>
-      </visual>
-    -->
+      </visual-->
     <visual name="front_right_leg_rev_visual_mesh">
       <origin rpy="0 0 0" xyz=" 0 0 0"/>
       <geometry>
@@ -325,11 +564,10 @@
     <collision name="rear_left_wheel_collision">
       <origin rpy="-1.57079632679 0 0" xyz=" 0 0 0"/>
       <geometry>
-        <cylinder length="0.0356884" radius="0.201784"/>
+        <mesh filename="package://wheelchair_description/meshes/wheelchair_wheel.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
-    <!--
-      <visual name="${lr}_visual">
+    <!--visual name="${lr}_visual">
         <transparency>0.1</transparency>
         <origin xyz="${xyz}" rpy="${rpy}" />
         <geometry>
@@ -337,8 +575,7 @@
         </geometry>
 
         <material name="green"/>
-      </visual>
-    -->
+      </visual-->
     <visual name="rear_left_wheel_visual_mesh">
       <origin rpy="-1.57079632679 0 0" xyz=" 0 0 0"/>
       <geometry>
@@ -363,11 +600,10 @@
     <collision name="rear_right_wheel_collision">
       <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
       <geometry>
-        <cylinder length="0.0356884" radius="0.201784"/>
+        <mesh filename="package://wheelchair_description/meshes/wheelchair_wheel.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
-    <!--
-      <visual name="${lr}_visual">
+    <!--visual name="${lr}_visual">
         <transparency>0.1</transparency>
         <origin xyz="${xyz}" rpy="${rpy}" />
         <geometry>
@@ -375,8 +611,7 @@
         </geometry>
 
         <material name="green"/>
-      </visual>
-    -->
+      </visual-->
     <visual name="rear_right_wheel_visual_mesh">
       <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
       <geometry>
@@ -401,11 +636,10 @@
     <collision name="front_left_wheel_collision">
       <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
       <geometry>
-        <cylinder length="0.032" radius="0.068"/>
+        <mesh filename="package://wheelchair_description/meshes/wheelchair_wheel_small.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
-    <!--
-      <visual name="${lr}_visual">
+    <!--visual name="${lr}_visual">
         <transparency>0.1</transparency>
         <origin xyz="${xyz}" rpy="${rpy}" />
         <geometry>
@@ -413,8 +647,7 @@
         </geometry>
 
         <material name="green"/>
-      </visual>
-    -->
+      </visual-->
     <visual name="front_left_wheel_visual_mesh">
       <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
       <geometry>
@@ -439,11 +672,10 @@
     <collision name="front_right_wheel_collision">
       <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
       <geometry>
-        <cylinder length="0.032" radius="0.068"/>
+        <mesh filename="package://wheelchair_description/meshes/wheelchair_wheel_small.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
-    <!--
-      <visual name="${lr}_visual">
+    <!--visual name="${lr}_visual">
         <transparency>0.1</transparency>
         <origin xyz="${xyz}" rpy="${rpy}" />
         <geometry>
@@ -451,8 +683,7 @@
         </geometry>
 
         <material name="green"/>
-      </visual>
-    -->
+      </visual-->
     <visual name="front_right_wheel_visual_mesh">
       <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
       <geometry>
@@ -476,13 +707,13 @@
   <link name="person_body">
     <collision name="person_body_collision">
       <geometry>
-        <sphere radius="0.161784"/>
+        <sphere radius="0.141784"/>
       </geometry>
       <surface>
         <friction>
           <ode>
-            <mu>0</mu>
-            <mu2>0</mu2>
+            <mu>0.5</mu>
+            <mu2>0.5</mu2>
             <slip1>0.0</slip1>
             <slip2>0.0</slip2>
           </ode>
@@ -492,17 +723,17 @@
     <visual name="person_body_visual">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <sphere radius="0.161784"/>
+        <sphere radius="0.141784"/>
       </geometry>
     </visual>
     <inertial name="person_body_intertial">
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="60"/>
-      <inertia ixx="0.628177503744" ixy="0" ixz="0" iyy="0.628177503744" iyz="0" izz="0.628177503744"/>
+      <mass value="65"/>
+      <inertia ixx="0.522670269056" ixy="0" ixz="0" iyy="0.522670269056" iyz="0" izz="0.522670269056"/>
     </inertial>
   </link>
   <joint name="base_person_body_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.161784 0 0.161784"/>
+    <origin rpy="0 0 0" xyz="0.141784 0 0.141784"/>
     <parent link="base"/>
     <child link="person_body"/>
   </joint>
@@ -514,8 +745,8 @@
       <surface>
         <friction>
           <ode>
-            <mu>0</mu>
-            <mu2>0</mu2>
+            <mu>0.5</mu>
+            <mu2>0.5</mu2>
             <slip1>0.0</slip1>
             <slip2>0.0</slip2>
           </ode>
@@ -538,5 +769,81 @@
     <origin rpy="0 0 0" xyz="0 0 0.161784"/>
     <parent link="person_body"/>
     <child link="person_head"/>
+  </joint>
+  <link name="rear_right_pipe">
+    <collision name="rear_right_pipe_collision">
+      <origin rpy="0 1.57079632679 0" xyz=" -0.025 0 -0.01"/>
+      <geometry>
+        <mesh filename="package://wheelchair_description/meshes/pipe.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <!--visual name="${lr}_visual">
+        <transparency>0.1</transparency>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <cylinder length="${wheelWidth - tY}" radius="${wheelRadius}"/>
+        </geometry>
+
+        <material name="green"/>
+      </visual-->
+    <visual name="rear_right_pipe_visual_mesh">
+      <origin rpy="0 1.57079632679 0" xyz=" -0.025 0 -0.01"/>
+      <geometry>
+        <mesh filename="package://wheelchair_description/meshes/pipe.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <inertial name="rear_right_pipe_visual_intertial">
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="0.000304166666667" ixy="0" ixz="0" iyy="0.000304166666667" iyz="0" izz="0.0004"/>
+    </inertial>
+  </link>
+  <joint name="rear_right_leg_rear_right_pipe_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 -0.26"/>
+    <parent link="rear_right_leg"/>
+    <child link="rear_right_pipe"/>
+  </joint>
+  <link name="rear_left_pipe">
+    <collision name="rear_left_pipe_collision">
+      <origin rpy="0 1.57079632679 0" xyz=" -0.025 0 -0.01"/>
+      <geometry>
+        <mesh filename="package://wheelchair_description/meshes/pipe.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <!--visual name="${lr}_visual">
+        <transparency>0.1</transparency>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <cylinder length="${wheelWidth - tY}" radius="${wheelRadius}"/>
+        </geometry>
+
+        <material name="green"/>
+      </visual-->
+    <visual name="rear_left_pipe_visual_mesh">
+      <origin rpy="0 1.57079632679 0" xyz=" -0.025 0 -0.01"/>
+      <geometry>
+        <mesh filename="package://wheelchair_description/meshes/pipe.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <inertial name="rear_left_pipe_visual_intertial">
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="0.000304166666667" ixy="0" ixz="0" iyy="0.000304166666667" iyz="0" izz="0.0004"/>
+    </inertial>
+  </link>
+  <joint name="rear_left_leg_rear_left_pipe_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 -0.26"/>
+    <parent link="rear_left_leg"/>
+    <child link="rear_left_pipe"/>
+  </joint>
+  <joint name="rear_left_pipe_front_left_pipe_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="rear_left_pipe"/>
+    <child link="front_left_pipe"/>
+  </joint>
+  <joint name="rear_right_pipe_front_right_pipe_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="rear_right_pipe"/>
+    <child link="front_right_pipe"/>
   </joint>
 </robot>

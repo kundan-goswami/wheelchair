@@ -40,14 +40,14 @@ class Mdu:
         return sqrt(pow((goal_pose.x - self.pose.x), 2) +
                     pow((goal_pose.y - self.pose.y), 2))
 
-    def linear_vel(self, goal_pose, constant=0.1):
+    def linear_vel(self, goal_pose, constant=1):
         #print("Distance: " + str(self.euclidean_distance(goal_pose)))
         return constant * self.euclidean_distance(goal_pose)
 
     def steering_angle(self, goal_pose):
         return atan2(goal_pose.y - self.pose.y, goal_pose.x - self.pose.x)
 
-    def angular_vel(self, goal_pose, constant=0.01):
+    def angular_vel(self, goal_pose, constant=1.5):
 	#print("Angle: " + str(self.steering_angle(goal_pose)))
         return constant * (self.steering_angle(goal_pose) - self.theta)
 

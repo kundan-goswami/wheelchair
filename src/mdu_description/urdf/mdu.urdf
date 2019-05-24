@@ -8,78 +8,54 @@
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
-      <updateRate>20</updateRate>
-      <leftJoint>chassis_rear_left_wheel_joint</leftJoint>
-      <rightJoint>chassis_rear_right_wheel_joint</rightJoint>
-      <wheelSeparation>0.3</wheelSeparation>
+      <updateRate>40</updateRate>
+      <leftJoint>chassis_rear_left_wheel_mdu_joint</leftJoint>
+      <rightJoint>chassis_rear_right_wheel_mdu_joint</rightJoint>
+      <wheelSeparation>0.25</wheelSeparation>
       <wheelDiameter>0.254</wheelDiameter>
-      <torque>20</torque>
+      <torque>40</torque>
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
-      <robotBaseFrame>footprint</robotBaseFrame>
+      <robotBaseFrame>footprint_mdu</robotBaseFrame>
     </plugin>
   </gazebo>
   <gazebo reference="chassis">
     <material>Gazebo/Red</material>
   </gazebo>
-  <gazebo reference="rear_right_wheel">
+  <gazebo reference="rear_right_wheel_mdu">
     <material>Gazebo/Black</material>
   </gazebo>
-  <gazebo reference="rear_left_wheel">
+  <gazebo reference="rear_left_wheel_mdu">
     <material>Gazebo/Black</material>
   </gazebo>
-  <material name="black">
-    <color rgba="0.0 0.0 0.0 1.0"/>
-  </material>
-  <material name="blue">
-    <color rgba="0.0 0.0 0.8 1.0"/>
-  </material>
-  <material name="green">
-    <color rgba="0.0 0.8 0.0 1.0"/>
-  </material>
-  <material name="grey">
-    <color rgba="0.2 0.2 0.2 1.0"/>
-  </material>
-  <material name="orange">
-    <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
-  </material>
-  <material name="brown">
-    <color rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
-  </material>
-  <material name="red">
-    <color rgba="0.8 0.0 0.0 1.0"/>
-  </material>
-  <material name="white">
-    <color rgba="1.0 1.0 1.0 1.0"/>
-  </material>
   <link name="chassis">
     <inertial name="chassis_intertial">
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="20.0"/>
-      <inertia ixx="0.133333333333" ixy="0" ixz="0" iyy="0.216666666667" iyz="0" izz="0.216666666667"/>
+      <mass value="15.0"/>
+      <inertia ixx="0.128125" ixy="0" ixz="0" iyy="0.281125" iyz="0" izz="0.281125"/>
     </inertial>
     <collision name="collision">
       <geometry>
-        <box size="0.3 0.2 0.2"/>
+        <box size="0.43 0.25 0.2"/>
       </geometry>
     </collision>
     <visual name="chassis_visual">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.3 0.2 0.2"/>
+        <box size="0.43 0.25 0.2"/>
       </geometry>
     </visual>
     <collision name="caster_collision">
-      <origin rpy=" 0 0 0" xyz="-0.0865 0 -0.0635"/>
+      <origin rpy=" 0 0 0" xyz="-0.1515 0 -0.0635"/>
       <geometry>
         <sphere radius="0.0635"/>
       </geometry>
       <surface>
         <friction>
           <ode>
-            <mu>0</mu>
-            <mu2>0</mu2>
+            <mu>0.5</mu>
+            <mu2>0.5</mu2>
             <slip1>1.0</slip1>
             <slip2>1.0</slip2>
           </ode>
@@ -87,111 +63,188 @@
       </surface>
     </collision>
     <visual name="caster_visual">
-      <origin rpy=" 0 0 0" xyz="-0.0865 0 -0.0635"/>
+      <origin rpy=" 0 0 0" xyz="-0.1515 0 -0.0635"/>
       <geometry>
         <sphere radius="0.0635"/>
       </geometry>
     </visual>
   </link>
-  <link name="footprint">
+  <link name="rear_left_wheel_mdu">
+    <collision name="rear_left_wheel_mdu_collision">
+      <origin rpy="-1.57079632679 0 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.127"/>
+      </geometry>
+    </collision>
+    <visual name="rear_left_wheel_mdu_visual">
+      <transparency>0.1</transparency>
+      <origin rpy="-1.57079632679 0 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.03" radius="0.127"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <!--visual name="${lr}_visual_mesh">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+
+        <geometry>
+          <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
+        </geometry>
+      </visual-->
+    <inertial name="rear_left_wheel_mdu_visual_intertial">
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.00848116666667" ixy="0" ixz="0" iyy="0.00848116666667" iyz="0" izz="0.016129"/>
+    </inertial>
+    <!-- This block connects the wheel joint to an actuator (motor), which informs both
+		simulation and visualization of the robot -->
+    <!--transmission name="${lr}_wheel_trans">
+		  <type>transmission_interface/SimpleTransmission</type>
+		  <actuator name="${lr}_wheel_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		  </actuator>
+		  <joint name="${lr}_motor_wheel_joint">
+			<hardwareInterface>VelocityJointInterface</hardwareInterface>
+		  </joint>
+		</transmission-->
   </link>
-  <joint name="footprint_chassis_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.127"/>
-    <parent link="footprint"/>
+  <joint name="chassis_rear_left_wheel_mdu_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0.05 0.145 0"/>
+    <child link="rear_left_wheel_mdu"/>
+    <parent link="chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.01" friction="0.5"/>
+  </joint>
+  <link name="rear_right_wheel_mdu">
+    <collision name="rear_right_wheel_mdu_collision">
+      <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.127"/>
+      </geometry>
+    </collision>
+    <visual name="rear_right_wheel_mdu_visual">
+      <transparency>0.1</transparency>
+      <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.03" radius="0.127"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <!--visual name="${lr}_visual_mesh">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+
+        <geometry>
+          <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
+        </geometry>
+      </visual-->
+    <inertial name="rear_right_wheel_mdu_visual_intertial">
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.00848116666667" ixy="0" ixz="0" iyy="0.00848116666667" iyz="0" izz="0.016129"/>
+    </inertial>
+    <!-- This block connects the wheel joint to an actuator (motor), which informs both
+		simulation and visualization of the robot -->
+    <!--transmission name="${lr}_wheel_trans">
+		  <type>transmission_interface/SimpleTransmission</type>
+		  <actuator name="${lr}_wheel_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		  </actuator>
+		  <joint name="${lr}_motor_wheel_joint">
+			<hardwareInterface>VelocityJointInterface</hardwareInterface>
+		  </joint>
+		</transmission-->
+  </link>
+  <joint name="chassis_rear_right_wheel_mdu_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0.05 -0.145 0"/>
+    <child link="rear_right_wheel_mdu"/>
+    <parent link="chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.01" friction="0.5"/>
+  </joint>
+  <link name="front_right_pipe">
+    <collision name="front_right_pipe_collision">
+      <origin rpy="0 1.57079632679 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.015"/>
+      </geometry>
+    </collision>
+    <visual name="front_right_pipe_visual">
+      <transparency>0.1</transparency>
+      <origin rpy="0 1.57079632679 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.009" radius="0.015"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <!--visual name="${lr}_visual_mesh">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+
+        <geometry>
+          <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
+        </geometry>
+      </visual-->
+    <inertial name="front_right_pipe_visual_intertial">
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="3.22916666667e-05" ixy="0" ixz="0" iyy="3.22916666667e-05" iyz="0" izz="5.625e-05"/>
+    </inertial>
+    <!-- This block connects the wheel joint to an actuator (motor), which informs both
+		simulation and visualization of the robot -->
+    <!--transmission name="${lr}_wheel_trans">
+		  <type>transmission_interface/SimpleTransmission</type>
+		  <actuator name="${lr}_wheel_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		  </actuator>
+		  <joint name="${lr}_motor_wheel_joint">
+			<hardwareInterface>VelocityJointInterface</hardwareInterface>
+		  </joint>
+		</transmission-->
+  </link>
+  <!--link_joint parent='front_right_pipe' child='chassis' xyz="${chassis_length_mdu/2 } ${chassis_width__mdu/2 - 0.10} ${(0.082 + 0.00280)}" rpy="0 0 0" type="fixed"/-->
+  <link name="front_left_pipe">
+    <collision name="front_left_pipe_collision">
+      <origin rpy="0 1.57079632679 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.015"/>
+      </geometry>
+    </collision>
+    <visual name="front_left_pipe_visual">
+      <transparency>0.1</transparency>
+      <origin rpy="0 1.57079632679 0" xyz=" 0 0 0"/>
+      <geometry>
+        <cylinder length="0.009" radius="0.015"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <!--visual name="${lr}_visual_mesh">
+        <origin xyz="${xyz}" rpy="${rpy}" />
+
+        <geometry>
+          <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
+        </geometry>
+      </visual-->
+    <inertial name="front_left_pipe_visual_intertial">
+      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="3.22916666667e-05" ixy="0" ixz="0" iyy="3.22916666667e-05" iyz="0" izz="5.625e-05"/>
+    </inertial>
+    <!-- This block connects the wheel joint to an actuator (motor), which informs both
+		simulation and visualization of the robot -->
+    <!--transmission name="${lr}_wheel_trans">
+		  <type>transmission_interface/SimpleTransmission</type>
+		  <actuator name="${lr}_wheel_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		  </actuator>
+		  <joint name="${lr}_motor_wheel_joint">
+			<hardwareInterface>VelocityJointInterface</hardwareInterface>
+		  </joint>
+		</transmission-->
+  </link>
+  <joint name="front_left_pipe_chassis_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.215 -0.065 0.0848"/>
+    <parent link="front_left_pipe"/>
     <child link="chassis"/>
-  </joint>
-  <link name="rear_left_wheel">
-    <collision name="rear_left_wheel_collision">
-      <origin rpy="-1.57079632679 0 0" xyz=" 0 0 0"/>
-      <geometry>
-        <cylinder length="0.05" radius="0.127"/>
-      </geometry>
-    </collision>
-    <visual name="rear_left_wheel_visual">
-      <transparency>0.1</transparency>
-      <origin rpy="-1.57079632679 0 0" xyz=" 0 0 0"/>
-      <geometry>
-        <cylinder length="0.03" radius="0.127"/>
-      </geometry>
-      <material name="green"/>
-    </visual>
-    <!--visual name="${lr}_visual_mesh">
-        <origin xyz="${xyz}" rpy="${rpy}" />
-
-        <geometry>
-          <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
-        </geometry>
-      </visual-->
-    <inertial name="rear_left_wheel_visual_intertial">
-      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
-      <mass value="2.0"/>
-      <inertia ixx="0.00848116666667" ixy="0" ixz="0" iyy="0.00848116666667" iyz="0" izz="0.016129"/>
-    </inertial>
-    <!-- This block connects the wheel joint to an actuator (motor), which informs both
-		simulation and visualization of the robot -->
-    <!--transmission name="${lr}_wheel_trans">
-		  <type>transmission_interface/SimpleTransmission</type>
-		  <actuator name="${lr}_wheel_motor">
-			<mechanicalReduction>1</mechanicalReduction>
-		  </actuator>
-		  <joint name="${lr}_motor_wheel_joint">
-			<hardwareInterface>VelocityJointInterface</hardwareInterface>
-		  </joint>
-		</transmission-->
-  </link>
-  <joint name="chassis_rear_left_wheel_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.01 0.12 0"/>
-    <child link="rear_left_wheel"/>
-    <parent link="chassis"/>
-    <axis rpy="0 0 0" xyz="0 1 0"/>
-    <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.01" friction="0.5"/>
-  </joint>
-  <link name="rear_right_wheel">
-    <collision name="rear_right_wheel_collision">
-      <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
-      <geometry>
-        <cylinder length="0.05" radius="0.127"/>
-      </geometry>
-    </collision>
-    <visual name="rear_right_wheel_visual">
-      <transparency>0.1</transparency>
-      <origin rpy="1.57079632679 0 0" xyz=" 0 0 0"/>
-      <geometry>
-        <cylinder length="0.03" radius="0.127"/>
-      </geometry>
-      <material name="green"/>
-    </visual>
-    <!--visual name="${lr}_visual_mesh">
-        <origin xyz="${xyz}" rpy="${rpy}" />
-
-        <geometry>
-          <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
-        </geometry>
-      </visual-->
-    <inertial name="rear_right_wheel_visual_intertial">
-      <origin rpy="0 1.57079632679 1.57079632679" xyz="0 0 0"/>
-      <mass value="2.0"/>
-      <inertia ixx="0.00848116666667" ixy="0" ixz="0" iyy="0.00848116666667" iyz="0" izz="0.016129"/>
-    </inertial>
-    <!-- This block connects the wheel joint to an actuator (motor), which informs both
-		simulation and visualization of the robot -->
-    <!--transmission name="${lr}_wheel_trans">
-		  <type>transmission_interface/SimpleTransmission</type>
-		  <actuator name="${lr}_wheel_motor">
-			<mechanicalReduction>1</mechanicalReduction>
-		  </actuator>
-		  <joint name="${lr}_motor_wheel_joint">
-			<hardwareInterface>VelocityJointInterface</hardwareInterface>
-		  </joint>
-		</transmission-->
-  </link>
-  <joint name="chassis_rear_right_wheel_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.01 -0.12 0"/>
-    <child link="rear_right_wheel"/>
-    <parent link="chassis"/>
-    <axis rpy="0 0 0" xyz="0 1 0"/>
-    <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.01" friction="0.5"/>
   </joint>
 </robot>

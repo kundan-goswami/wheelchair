@@ -1,0 +1,86 @@
+<?xml version='1.0'?>
+
+<robot name="mdu" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+
+  <xacro:property name="main_wheel_length" value="0.05" />
+  <xacro:property name="main_wheel_radius" value="0.127" />
+  <xacro:property name="main_wheel_weight" value="2.0" />
+
+  <xacro:property name="axle_width" value="0.01" /> 
+  <xacro:property name="axle_length" value="${0.30}"/> 	
+  <xacro:property name="axle_height" value="0.01" /> 						
+  <xacro:property name="axle_weight" value="0.1" />
+
+  <xacro:property name="chassis_width" value="${axle_length  - 0.05}" /> <!-- From front wheel right joint to front wheel left joint -->
+ <xacro:property name="chassis_width_" value="${0.33 }" /> <!-- From front wheel right joint to front wheel left joint -->
+  <xacro:property name="chassis_length" value="${chassis_width_ +0.1}" /> 	 <!-- From front wheel joint to back wheel joint -->
+  <xacro:property name="chassis_height" value="0.2" /> 				 <!-- From front wheel joint to head rest -->
+  <xacro:property name="chassis_weight" value="${5.0}" />
+  
+  <xacro:include filename="$(find mdu_description)/urdf/mdu.gazebo" />
+  <xacro:include filename="$(find mdu_description)/urdf/materials.xacro" />
+  <xacro:include filename="$(find mdu_description)/urdf/macros.xacro" />
+
+  <link name='chassis'>
+    <inertial name="chassis_intertial">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="${chassis_weight}"/>
+        <box_inertia m="${chassis_weight}" x="${chassis_length}" y="${chassis_width}" z ="${chassis_height}" />
+      </inertial>
+
+    <collision name='collision'>
+      <geometry>
+        <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+      </geometry>
+    </collision>
+
+    <visual name='chassis_visual'>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+      </geometry>
+    </visual>
+
+    <collision name='caster_collision'>
+      <origin xyz="${-(chassis_length/2 - main_wheel_radius/2)} 0 ${-main_wheel_radius/2}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${(main_wheel_radius/2)}"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.5</mu>
+            <mu2>0.5</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+
+    <visual name='caster_visual'>
+      <origin xyz="${-(chassis_length/2 - main_wheel_radius/2)} 0 ${-main_wheel_radius/2}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${(main_wheel_radius/2)}"/>
+      </geometry>
+    </visual>
+    
+  </link>
+  <link name='footprint'>
+  </link>
+  <link_joint parent='footprint' child='chassis' xyz="0 0 ${main_wheel_radius}" rpy="0 0 0" type="fixed"/>
+  <wheel  lr="rear_left_wheel" tY="0.02" xyz=" 0 0 0" rpy="${-pi/2} 0 0" wheelWidth="${main_wheel_length}" wheelRadius="${main_wheel_radius}" wheelMass="${main_wheel_weight}" meshFile="wheelchair_wheel"/>
+  <wheel_joint parent="chassis" child ="rear_left_wheel" xyz="0.05 ${chassis_width/2 +0.02} 0" rpy="0 0 0" axis="0 1 0"/>
+
+  <wheel  lr="rear_right_wheel" tY="0.02" xyz=" 0 0 0" rpy="${pi/2} 0 0" wheelWidth="${main_wheel_length}" wheelRadius="${main_wheel_radius}" wheelMass="${main_wheel_weight}" meshFile="wheelchair_wheel"/>
+  <wheel_joint parent="chassis" child ="rear_right_wheel" xyz="0.05 ${-chassis_width/2 - 0.02} 0" rpy="0 0 0" axis="0 1 0"/>
+
+  <wheel  lr="front_right_pipe" tY="0.001" xyz=" 0 0 0" rpy="0 ${pi/2} 0" wheelWidth="${0.1}" wheelRadius="${0.015}" wheelMass="${0.5}" meshFile="pipe"/>
+  <link_joint parent='chassis' child='front_right_pipe' xyz="${chassis_length/2 +0.075} ${chassis_width_/2 - 0.10} ${-0.09}" rpy="0 0 0" type="fixed"/>
+
+  <wheel  lr="front_left_pipe" tY="0.001" xyz=" 0 0 0" rpy="0 ${pi/2} 0" wheelWidth="${0.1}" wheelRadius="${0.015}" wheelMass="${0.5}" meshFile="pipe"/>
+  <link_joint parent='chassis' child='front_left_pipe' xyz="${chassis_length/2 +0.075} ${-chassis_width_/2 +0.10} ${-0.09}" rpy="0 0 0" type="fixed"/>
+
+
+</robot>

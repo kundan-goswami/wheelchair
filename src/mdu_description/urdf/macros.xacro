@@ -34,7 +34,7 @@
     </joint>
   </xacro:macro>
 
-  <xacro:macro name="wheel" params="lr tY xyz rpy wheelWidth wheelRadius wheelMass meshFile">
+  <xacro:macro name="wheel_mdu" params="lr tY xyz rpy wheelWidth wheelRadius wheelMass meshFile">
     <link name="${lr}">
       <collision name="${lr}_collision">
         <origin xyz="${xyz}" rpy="${rpy}" />
@@ -77,6 +77,28 @@
 			<hardwareInterface>VelocityJointInterface</hardwareInterface>
 		  </joint>
 		</transmission-->
+    </link>
+  </xacro:macro>
+ 
+ <xacro:macro name="wheel__mdu" params="lr tY xyz rpy wheelWidth wheelRadius wheelMass meshFile">
+    <link name="${lr}">
+    
+      <visual name="${lr}_visual">
+        <transparency>0.1</transparency>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <cylinder length="${wheelWidth - tY}" radius="${wheelRadius}"/>
+        </geometry>
+
+        <material name="green"/>
+      </visual>
+
+      <inertial name="${lr}_visual_intertial">
+        <origin xyz="0 0 0" rpy="0 ${pi/2} ${pi/2}" />
+        <mass value="${wheelMass}"/>
+        <cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}"/>
+      </inertial>
+	
     </link>
   </xacro:macro>
  

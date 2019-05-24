@@ -4,26 +4,26 @@
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
-      <updateRate>20</updateRate>
-      <leftJoint>chassis_rear_left_wheel_joint</leftJoint>
-      <rightJoint>chassis_rear_right_wheel_joint</rightJoint>
-      <wheelSeparation>${axle_length}</wheelSeparation>
-      <wheelDiameter>${2*main_wheel_radius}</wheelDiameter>
-      <torque>20</torque>
+      <updateRate>40</updateRate>
+      <leftJoint>chassis_rear_left_wheel_mdu_joint</leftJoint>
+      <rightJoint>chassis_rear_right_wheel_mdu_joint</rightJoint>
+      <wheelSeparation>${chassis_width_mdu}</wheelSeparation>
+      <wheelDiameter>${2*main_wheel_radius_mdu}</wheelDiameter>
+      <torque>40</torque>
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
-      <robotBaseFrame>footprint</robotBaseFrame>
+      <robotBaseFrame>footprint_mdu</robotBaseFrame>
     </plugin>
   </gazebo>
 
   <gazebo reference="chassis">
       <material>Gazebo/Red</material>
     </gazebo>
-    <gazebo reference="rear_right_wheel">
+    <gazebo reference="rear_right_wheel_mdu">
       <material>Gazebo/Black</material>
     </gazebo>
-    <gazebo reference="rear_left_wheel">
+    <gazebo reference="rear_left_wheel_mdu">
       <material>Gazebo/Black</material>
     </gazebo>
 
