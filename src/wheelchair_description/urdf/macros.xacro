@@ -42,7 +42,7 @@
           <mesh filename="package://wheelchair_description/meshes/${meshFile}.stl" scale="0.01 0.01 0.01"/>
         </geometry>
       </collision>
-      
+
       <!--visual name="${lr}_visual">
         <transparency>0.1</transparency>
         <origin xyz="${xyz}" rpy="${rpy}" />
@@ -52,7 +52,7 @@
 
         <material name="green"/>
       </visual-->
-    
+
       <visual name="${lr}_visual_mesh">
         <origin xyz="${xyz}" rpy="${rpy}" />
 
@@ -69,7 +69,7 @@
   </xacro:macro>
   <xacro:macro name="wheel_" params="lr tY xyz rpy wheelWidth wheelRadius wheelMass meshFile">
     <link name="${lr}">
-    
+
       <visual name="${lr}_visual_mesh">
         <origin xyz="${xyz}" rpy="${rpy}" />
         <geometry>
@@ -132,7 +132,7 @@
 	  </ode>
 	</friction>
 	</surface>
-	     
+
       </collision>
       <visual name='${name}_visual'>
         <origin xyz="${xyz}" rpy="${rpy}" />
@@ -176,5 +176,33 @@
 
     </joint>
   </xacro:macro>
+  <xacro:macro name="link_" params="name xyz rpy m length width height">
+      <link name="${name}">
+        <collision name='${name}_link_collision'>
+          <geometry>
+            <box size="${length} ${width} ${height}"/>
+          </geometry>
+        </collision>
+        <visual name='${name}_visual'>
+          <origin xyz="${xyz}" rpy="${rpy}" />
+            <geometry>
+              <box size="${length} ${width} ${height}"/>
+          </geometry>
+        </visual>
+        <inertial name="${name}_intertial">
+          <origin xyz="${xyz}" rpy="${rpy}" />
+          <mass value="${m}"/>
+          <box_inertia m="${m}" x="${length}" y="${width}" z ="${height}" />
+        </inertial>
+      </link>
+    </xacro:macro>
+    <xacro:macro name="link_joint" params="parent child xyz rpy type">
+      <joint type="${type}" name="${parent}_${child}_joint">
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+        <parent link="${parent}"/>
+        <child link="${child}"/>
+
+      </joint>
+    </xacro:macro>
 
 </robot>

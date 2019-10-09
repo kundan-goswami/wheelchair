@@ -4,20 +4,20 @@
 
 
   <xacro:property name="main_wheel_length_mdu" value="0.05" />
-  <xacro:property name="main_wheel_radius_mdu" value="0.127" />
+  <xacro:property name="main_wheel_radius_mdu" value="0.08255" /> <!--0.127-->
   <xacro:property name="main_wheel_weight_mdu" value="2.0" />
 
-  <xacro:property name="axle_width_mdu" value="0.01" /> 
-  <xacro:property name="axle_length_mdu" value="${0.30}"/> 	
-  <xacro:property name="axle_height_mdu" value="0.01" /> 						
+  <xacro:property name="axle_width_mdu" value="0.01" />
+  <xacro:property name="axle_length_mdu" value="${0.2}"/> <!-- 0.03-->
+  <xacro:property name="axle_height_mdu" value="0.01" />
   <xacro:property name="axle_weight_mdu" value="0.1" />
 
   <xacro:property name="chassis_width_mdu" value="${axle_length_mdu  - 0.05}" /> <!-- From front wheel right joint to front wheel left joint -->
- <xacro:property name="chassis_width__mdu" value="${0.33 }" /> <!-- From front wheel right joint to front wheel left joint -->
-  <xacro:property name="chassis_length_mdu" value="${chassis_width__mdu +0.1}" /> 	 <!-- From front wheel joint to back wheel joint -->
-  <xacro:property name="chassis_height_mdu" value="0.2" /> 				 <!-- From front wheel joint to head rest -->
+ <xacro:property name="chassis_width__mdu" value="${chassis_width_mdu}" /> <!-- From front wheel right joint to front wheel left joint -->
+  <xacro:property name="chassis_length_mdu" value="${0.1}" /> 	 <!-- chassis_width__mdu +0.01 From front wheel joint to back wheel joint -->
+  <xacro:property name="chassis_height_mdu" value="0.1" /> 				 <!-- From front wheel joint to head rest -->
   <xacro:property name="chassis_weight_mdu" value="${15.0}" />
-  
+
   <xacro:include filename="$(find mdu_description)/urdf/mdu.gazebo" />
   <xacro:include filename="$(find mdu_description)/urdf/macros.xacro" />
 
@@ -64,22 +64,30 @@
         <sphere radius="${(main_wheel_radius_mdu/2)}"/>
       </geometry>
     </visual>
-    
+
   </link>
   <!--link name='footprint_mdu'>
   </link-->
   <!--link_joint parent='footprint_mdu' child='chassis' xyz="0 0 ${main_wheel_radius_mdu}" rpy="0 0 0" type="fixed"/-->
   <wheel_mdu  lr="rear_left_wheel_mdu" tY="0.02" xyz=" 0 0 0" rpy="${-pi/2} 0 0" wheelWidth="${main_wheel_length_mdu}" wheelRadius="${main_wheel_radius_mdu}" wheelMass="${main_wheel_weight_mdu}" meshFile="wheelchair_wheel"/>
-  <wheel_joint parent="chassis" child ="rear_left_wheel_mdu" xyz="0.05 ${chassis_width_mdu/2 +0.02} 0" rpy="0 0 0" axis="0 1 0"/>
+  <wheel_joint parent="chassis" child ="rear_left_wheel_mdu" xyz="0.0 ${chassis_width_mdu/2 +0.02} 0" rpy="0 0 0" axis="0 1 0"/>
 
   <wheel_mdu  lr="rear_right_wheel_mdu" tY="0.02" xyz=" 0 0 0" rpy="${pi/2} 0 0" wheelWidth="${main_wheel_length_mdu}" wheelRadius="${main_wheel_radius_mdu}" wheelMass="${main_wheel_weight_mdu}" meshFile="wheelchair_wheel"/>
-  <wheel_joint parent="chassis" child ="rear_right_wheel_mdu" xyz="0.05 ${-chassis_width_mdu/2 - 0.02} 0" rpy="0 0 0" axis="0 1 0"/>
+  <wheel_joint parent="chassis" child ="rear_right_wheel_mdu" xyz="0.0 ${-chassis_width_mdu/2 - 0.02} 0" rpy="0 0 0" axis="0 1 0"/>
 
-  <wheel_mdu  lr="front_right_pipe" tY="0.001" xyz=" 0 0 0" rpy="0 ${pi/2} 0" wheelWidth="${0.01}" wheelRadius="${0.015}" wheelMass="${0.5}" meshFile="pipe"/>
-  <!--link_joint parent='front_right_pipe' child='chassis' xyz="${chassis_length_mdu/2 } ${chassis_width__mdu/2 - 0.10} ${(0.082 + 0.00280)}" rpy="0 0 0" type="fixed"/-->
+  <!--wheel_mdu  lr="front_right_pipe" tY="0.001" xyz=" 0 0 0" rpy="0 ${pi/2} 0" wheelWidth="${0.01}" wheelRadius="${0.005}" wheelMass="${0.5}" meshFile="pipe"/>
+  <wheel_mdu  lr="front_left_pipe" tY="0.001" xyz=" 0 0 0" rpy="0 ${pi/2} 0" wheelWidth="${0.01}" wheelRadius="${0.005}" wheelMass="${0.5}" meshFile="pipe"/-->
 
-  <wheel_mdu  lr="front_left_pipe" tY="0.001" xyz=" 0 0 0" rpy="0 ${pi/2} 0" wheelWidth="${0.01}" wheelRadius="${0.015}" wheelMass="${0.5}" meshFile="pipe"/>
-  <link_joint parent='front_left_pipe' child='chassis' xyz="${-chassis_length_mdu/2 } ${-chassis_width__mdu/2 +0.10} ${0.082 + 0.00280}" rpy="0 0 0" type="fixed"/>
+  <!--link_ name="front_left_link" xyz=" 0 0 0" rpy="0 ${3*pi/4} 0" m="${0.1}" length="${0.001}" width="${0.01}" height="${0.01}" />
+  <link_joint parent='chassis' child='front_left_link' xyz="${chassis_length_mdu/2 } ${chassis_width__mdu/2 - 0.01} ${0.082 + 0.00280 - 0.0444}" rpy="0 0 0" type="fixed"/-->
+
+  <link_ name="front_right_link" xyz=" 0 0 0" rpy="0 0 0" m="${0.1}" length="${0.001}" width="${0.01}" height="${0.01}" />
+  <link_joint parent='chassis' child='front_right_link' xyz="${chassis_length_mdu/2 } ${-chassis_width__mdu/2 + 0.01} ${0.082 + 0.00280 - 0.0444}" rpy="0 0 0" type="fixed"/>
+
+
+  <!--link_joint parent='front_right_pipe' child='chassis' xyz="${-chassis_length_mdu/2 } ${chassis_width__mdu/2} ${0.082 + 0.00280 - 0.0444}" rpy="0 0 0" type="fixed"/>
+
+  <link_joint parent='front_left_pipe' child='chassis' xyz="${-chassis_length_mdu/2 } ${-chassis_width__mdu/2} ${0.082 + 0.00280 - 0.0444}" rpy="0 0 0" type="fixed"/-->
 
 
 </robot>

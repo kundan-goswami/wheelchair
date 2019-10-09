@@ -23,11 +23,13 @@ class Mdu:
 
         self.pose = Pose()
         self.theta = 0
-        self.rate = rospy.Rate(10)
+        self.rate = rospy.Rate(500)
+        self.odom = Odometry()
 
     def update_pose(self, data):
         """Callback function which is called when a new message of type Pose is
         received by the subscriber."""
+        self.odom = data
         self.pose = data.pose.pose.position
  	self.theta = data.pose.pose.orientation.z
         #print(data.pose.pose)
@@ -50,6 +52,44 @@ class Mdu:
     def angular_vel(self, goal_pose, constant=1.5):
 	#print("Angle: " + str(self.steering_angle(goal_pose)))
         return constant * (self.steering_angle(goal_pose) - self.theta)
+
+    def vel_control(self):
+        vel_msg = Twist()
+        desired_lin_vel = 0.5
+        desired_angu_vel = 0
+        lin_vel_error   = 0
+        angu_vel_error  = 0
+        angu_vel_error_prev = 0
+        lin_vel_error_intg = 0
+        angu_vel_error_intg = 0
+        lin_vel_Kp = 1.2
+        lin_vel_Ki = 1.2
+        angu_vel_Kp = 3.1
+        angu_vel_Ki = 1.2
+        angu_vel_Kd = 0.001
+        while 1:
+            lin_vel_error  = (desired_lin_vel - self.odom.twist.twist.linear.x)
+            lin_vel_error_intg = lin_vel_error_intg + lin_vel_error
+            angu_vel_error  = (desired_angu_vel - self.odom.twist.twist.angular.z)
+            angu_vel_error_intg = angu_vel_error_intg +angu_vel_error
+            diff_angu_vel_error = (angu_vel_error - angu_vel_error_prev)/(1.0/500)
+            angu_vel_error_prev = angu_vel_error
+            vel_msg.linear.x = desired_lin_vel#lin_vel_error*lin_vel_Kp + lin_vel_error_intg*lin_vel_Ki
+            vel_msg.linear.y = 0
+            vel_msg.linear.z = 0
+
+            vel_msg.angular.x = 0
+            vel_msg.angular.y = 0
+            vel_msg.angular.z = angu_vel_error*angu_vel_Kp + angu_vel_error_intg* angu_vel_Ki + diff_angu_vel_error*angu_vel_Kd
+            """
+            if vel_msg.angular.z > 3:
+                vel_msg.angular.z = 3
+            elif vel_msg.angular.z < -3:
+                vel_msg.angular.z = -3
+            """
+            self.velocity_publisher.publish(vel_msg)
+            self.rate.sleep()
+        rospy.spin()
 
     def move2goal(self):
         """Moves the turtle to the goal."""
@@ -94,6 +134,7 @@ class Mdu:
 if __name__ == '__main__':
     try:
         x = Mdu()
-        x.move2goal()
+        #x.move2goal()
+        x.vel_control()
     except rospy.ROSInterruptException:
         exit()
